@@ -1,1 +1,107 @@
-<!DOCTYPE html><html><head><title>Add Money</title></head><body>Add your balance</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Money – Shadow eSports</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url('logo.png'); /* Replace with your background image */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      backdrop-filter: blur(6px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div class="bg-black bg-opacity-70 p-8 rounded-2xl shadow-xl w-full max-w-md text-white">
+    <h2 class="text-3xl font-bold text-center mb-6">Add Money</h2>
+
+    <form id="addMoneyForm" class="space-y-4">
+      <!-- Amount Input -->
+      <div>
+        <label class="block mb-1">Amount (৳)</label>
+        <input type="number" id="amount" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required />
+      </div>
+
+      <!-- Payment Method -->
+      <div>
+        <label class="block mb-1">Payment Method</label>
+        <select id="method" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required>
+          <option value="">Choose</option>
+          <option value="bkash">bKash</option>
+          <option value="nagad">Nagad</option>
+        </select>
+      </div>
+
+      <!-- Payment Number -->
+      <div>
+        <label class="block mb-1">Your Payment Number</label>
+        <input type="text" id="payNumber" placeholder="Ex: 017XXXXXXXX" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required />
+      </div>
+
+      <!-- Transaction ID -->
+      <div>
+        <label class="block mb-1">Transaction ID</label>
+        <input type="text" id="txnid" placeholder="Ex: TXN123456" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required />
+      </div>
+
+      <!-- Submit -->
+      <div class="text-center">
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-6 py-3 rounded-xl">
+          Submit
+        </button>
+      </div>
+    </form>
+
+    <!-- Result Message -->
+    <div id="result" class="text-center mt-6 text-lg font-bold"></div>
+
+    <!-- Payment Info -->
+    <div class="text-white text-sm text-center mt-4 leading-relaxed">
+      <p><strong>bKash Number:</strong> 01714494667</p>
+      <p><strong>Nagad Numbers:</strong> 01714494667, 01791970825</p>
+    </div>
+
+    <!-- WhatsApp Info -->
+    <p class="text-sm text-center mt-4">
+      After payment, contact admin:<br />
+      <a href="https://wa.me/01322343834" target="_blank" class="text-yellow-400 underline">WhatsApp: 01322343834</a>
+    </p>
+  </div>
+
+  <!-- Manual Bot JavaScript -->
+  <script>
+    // Approved Manual Transactions (admin updates this)
+    const approvedTxns = [
+      { id: "TXN123", number: "01710000000", amount: 100 },
+      { id: "TXN456", number: "01720000000", amount: 50 },
+      { id: "TXN789", number: "01730000000", amount: 30 }
+    ];
+
+    document.getElementById("addMoneyForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const amount = parseInt(document.getElementById("amount").value);
+      const txnid = document.getElementById("txnid").value.trim();
+      const number = document.getElementById("payNumber").value.trim();
+
+      const match = approvedTxns.find(
+        (txn) => txn.id === txnid && txn.number === number && txn.amount === amount
+      );
+
+      const resultBox = document.getElementById("result");
+      if (match) {
+        resultBox.innerHTML = `✅ Payment Successful!<br>💰 ${amount} Coins added to your account.`;
+        resultBox.classList.remove("text-red-500");
+        resultBox.classList.add("text-green-400");
+      } else {
+        resultBox.innerHTML = "❌ Invalid Transaction! Please contact admin.";
+        resultBox.classList.remove("text-green-400");
+        resultBox.classList.add("text-red-500");
+      }
+    });
+  </script>
+</body>
+</html>
