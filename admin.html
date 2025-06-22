@@ -1,65 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin Login - Shadow eSports</title>
+  <title>Admin Panel - Shadow eSports</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background: #121212;
+      background: #0f0f0f;
       color: #fff;
       font-family: Arial, sans-serif;
-      padding: 50px;
-      text-align: center;
-    }
-    .box {
-      background: #1e1e1e;
       padding: 30px;
-      border-radius: 10px;
-      display: inline-block;
     }
-    input {
+    .section {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+    input, textarea {
+      width: 100%;
       padding: 10px;
-      margin-top: 10px;
-      width: 200px;
-      border-radius: 5px;
+      margin-top: 8px;
+      margin-bottom: 12px;
       border: none;
+      border-radius: 5px;
     }
     button {
-      padding: 10px 20px;
       background: #00ffcc;
-      color: #000;
       border: none;
+      padding: 10px 15px;
+      color: #000;
+      font-weight: bold;
       border-radius: 5px;
-      margin-top: 15px;
       cursor: pointer;
     }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
-  <div class="box">
+
+  <!-- 🔐 Admin Login -->
+  <div id="loginSection">
     <h2>🔐 Admin Login</h2>
-    <input type="password" id="adminPass" placeholder="Enter Admin Password" />
-    <br>
-    <button onclick="checkPass()">Login</button>
+    <input type="password" id="adminPass" placeholder="Enter Admin Password">
+    <button onclick="checkLogin()">Login</button>
   </div>
 
-  <div id="adminPanel" style="display: none; margin-top: 30px;">
-    <h2>Welcome, Admin!</h2>
-    <p>🎮 Tournament data, players list, and transactions will appear here.</p>
-    <!-- You can add more admin tools here -->
+  <div id="adminPanel" class="hidden">
+    <h1>👑 Shadow eSports Admin Panel</h1>
+
+    <!-- 💎 Diamond Price Update -->
+    <div class="section">
+      <h3>💎 Update Diamond Package Prices</h3>
+      <input type="text" id="diamond1" placeholder="110 Diamonds - 100৳">
+      <input type="text" id="diamond2" placeholder="220 Diamonds - 200৳">
+      <input type="text" id="diamond3" placeholder="550 Diamonds - 500৳">
+      <input type="text" id="diamond4" placeholder="1100 Diamonds - 1000৳">
+      <button onclick="savePrices()">Save Prices</button>
+    </div>
+
+    <!-- 💬 Comment Box -->
+    <div class="section">
+      <h3>📣 Tournament Comment</h3>
+      <textarea id="commentMsg" rows="4" placeholder="Write tournament update..."></textarea>
+      <button onclick="postComment()">Post Comment</button>
+    </div>
+
+    <!-- 🎮 Room Code Section -->
+    <div class="section">
+      <h3>🎮 Room Code per Match</h3>
+      <input type="text" id="match1" placeholder="Match 1 Room Code">
+      <input type="text" id="match2" placeholder="Match 2 Room Code">
+      <input type="text" id="match3" placeholder="Match 3 Room Code">
+      <input type="text" id="match4" placeholder="Match 4 Room Code">
+      <input type="text" id="match5" placeholder="Match 5 Room Code">
+      <button onclick="saveRoomCodes()">Save Room Codes</button>
+    </div>
+
+    <!-- 📲 WhatsApp Notification -->
+    <div class="section">
+      <h3>📲 Trigger WhatsApp Notification</h3>
+      <input type="text" id="userEmail" placeholder="New signup email">
+      <input type="text" id="userPass" placeholder="Signup password">
+      <button onclick="sendSignup()">Notify Signup</button>
+      <br><br>
+      <input type="text" id="uid" placeholder="Player UID">
+      <button onclick="sendUID()">Notify UID Join</button>
+    </div>
+
   </div>
 
   <script>
-    function checkPass() {
-      const input = document.getElementById("adminPass").value;
-      const correctPassword = "kabbo123"; // You can change this password
-
-      if (input === correctPassword) {
-        document.querySelector(".box").style.display = "none";
-        document.getElementById("adminPanel").style.display = "block";
+    function checkLogin() {
+      const pass = document.getElementById('adminPass').value;
+      if (pass === "kabbo123") {
+        document.getElementById('loginSection').classList.add("hidden");
+        document.getElementById('adminPanel').classList.remove("hidden");
       } else {
         alert("❌ Wrong password!");
       }
     }
+
+    function savePrices() {
+      alert("✅ Diamond prices saved (local only)!");
+    }
+
+    function postComment() {
+      let msg = document.getElementById("commentMsg").value;
+      if (msg.trim()) alert("🗨️ Comment Posted:\n" + msg);
+    }
+
+    function saveRoomCodes() {
+      alert("✅ Room codes saved (local only)!");
+    }
+
+    function sendSignup() {
+      const email = document.getElementById("userEmail").value;
+      const pass = document.getElementById("userPass").value;
+      const msg = `🆕 New Signup on Shadow eSports!\n📧 Email: ${email}\n🔑 Password: ${pass}`;
+      window.open(`https://wa.me/8801322343834?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    function sendUID() {
+      const uid = document.getElementById("uid").value;
+      const msg = `🎮 New Player UID Join:\nUID: ${uid}`;
+      window.open(`https://wa.me/8801322343834?text=${encodeURIComponent(msg)}`, "_blank");
+    }
   </script>
+
 </body>
 </html>
