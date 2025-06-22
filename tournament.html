@@ -2,245 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shadow eSports Tournament</title>
+  <title>Join Tournament - Shadow eSports</title>
   <style>
     body {
+      background-color: #0e0e0e;
       font-family: Arial, sans-serif;
-      background: url('your-logo-bg.jpg') no-repeat center center fixed;
-      background-size: cover;
       color: white;
-      padding: 20px;
-    }
-    h1 {
-      color: #ff4444;
       text-align: center;
-    }
-    .form-box, .joined-list, .comment-box {
-      background: rgba(0,0,0,0.85);
       padding: 20px;
-      margin: 20px auto;
+    }
+
+    h1 {
+      color: #ff0055;
+    }
+
+    .tourney-box {
+      background-color: #1a1a1a;
+      border: 2px solid #00ccff;
       border-radius: 12px;
-      max-width: 700px;
+      margin: 20px auto;
+      padding: 15px;
+      max-width: 400px;
     }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 6px;
-      border: none;
-    }
-    button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      background: #ff4444;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .player {
-      background: rgba(255,255,255,0.1);
+
+    .tourney-box h2 {
+      color: #00ffff;
       margin-bottom: 10px;
-      border-radius: 8px;
-      padding: 10px;
     }
-    .flag {
-      color: yellow;
-      font-weight: bold;
+
+    .tourney-box p {
+      font-size: 14px;
+      color: #ccc;
     }
-    .admin-comment {
-      background-color: #222;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
-    }
-    .report-btn {
-      background-color: orange;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 4px;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-    .claim-btn {
-      background-color: #25D366;
+
+    .join-btn {
+      background-color: #00cc66;
       color: white;
-      margin-top: 10px;
-      border-radius: 5px;
-      padding: 8px 15px;
+      padding: 10px 20px;
       border: none;
+      border-radius: 10px;
+      margin-top: 10px;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.3s;
     }
-    .room-info {
-      background: rgba(0,0,0,0.5);
-      padding: 8px;
-      margin-top: 10px;
-      border-radius: 8px;
+
+    .join-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .comment-box {
+      background-color: #222;
+      border: 1px solid #666;
+      border-radius: 10px;
+      margin-top: 40px;
+      padding: 15px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .admin-comment {
+      background-color: #111;
+      padding: 10px;
+      border-left: 4px solid #00ffcc;
+      text-align: left;
+      margin-bottom: 10px;
+      color: #ccc;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 13px;
+      color: #888;
     }
   </style>
 </head>
 <body>
 
-  <h1>Join Shadow eSports Tournament</h1>
+  <h1>🎮 Join a Tournament</h1>
 
-  <!-- Player Join Form -->
-  <div class="form-box">
-    <h2>Player Info</h2>
-    <form id="joinForm">
-      <label>Game:</label>
-      <select id="gameSelect">
-        <option value="Free Fire">Free Fire</option>
-        <option value="PUBG">PUBG</option>
-      </select>
-
-      <label>UID:</label>
-      <input type="text" id="uid" required>
-
-      <label>Name:</label>
-      <input type="text" id="name" required>
-
-      <label>Match Number (1-8):</label>
-      <select id="matchNumber">
-        <option>1</option><option>2</option><option>3</option><option>4</option>
-        <option>5</option><option>6</option><option>7</option><option>8</option>
-      </select>
-
-      <label>Last Match Kill Count:</label>
-      <input type="number" id="kills" required>
-
-      <button type="submit">Join Tournament</button>
-    </form>
+  <!-- Battle Royale -->
+  <div class="tourney-box">
+    <h2>🏆 Battle Royale</h2>
+    <p>Entry: 25৳ | Per Kill: 10৳ | Top 1: 70৳</p>
+    <button class="join-btn" onclick="join('Battle Royale')">Join</button>
   </div>
 
-  <!-- Admin Set Room ID -->
-  <div class="form-box">
-    <h2>Set Room ID & Password (Admin Only)</h2>
-    <label>Match Number:</label>
-    <select id="roomMatchNumber">
-      <option>1</option><option>2</option><option>3</option><option>4</option>
-      <option>5</option><option>6</option><option>7</option><option>8</option>
-    </select>
-
-    <label>Room ID:</label>
-    <input type="text" id="roomID">
-
-    <label>Password:</label>
-    <input type="text" id="roomPass">
-
-    <button onclick="setRoom()">📣 Send Room Info</button>
+  <!-- Lone Wolf -->
+  <div class="tourney-box">
+    <h2>🐺 Lone Wolf</h2>
+    <p>Entry: 60৳ | Booyah: 75৳ | Players: 4</p>
+    <button class="join-btn" onclick="join('Lone Wolf')">Join</button>
   </div>
 
-  <!-- Player List -->
-  <div class="joined-list">
-    <h2>Joined Players (Admin View)</h2>
-    <div id="playerList"></div>
+  <!-- Clash Squad -->
+  <div class="tourney-box">
+    <h2>💣 Clash Squad</h2>
+    <p>Entry: 80৳ | Prize: 400৳ (Squad)</p>
+    <button class="join-btn" onclick="join('Clash Squad')">Join</button>
   </div>
 
-  <!-- Admin Comments -->
-  <div class="comment-box">
-    <h2>Admin Comments (Visible to All Players)</h2>
-    <div class="admin-comment">✅ Room ID & Password will be shared 10 mins before match start.</div>
-    <div class="admin-comment">❗ No hacks or emulator allowed. Report any cheaters!</div>
+  <!-- Admin Comment Box -->
+  <div class="comment-box" id="commentBox" style="display: none;">
+    <h3>📢 Admin Notices</h3>
+    <div class="admin-comment">Room 1 starts at 5:00 PM. Room code will be sent 10 mins before match.</div>
+    <div class="admin-comment">Players must record gameplay. No emulator allowed.</div>
   </div>
+
+  <footer>Shadow eSports © 2025</footer>
 
   <script>
-    const form = document.getElementById('joinForm');
-    const playerList = document.getElementById('playerList');
-    const reports = {};
-    const roomInfo = {};
+    const adminNumber = "01322343834"; // Your WhatsApp number
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+    function join(tournament) {
+      // Show comment box only for joined players
+      document.getElementById("commentBox").style.display = "block";
 
-      const game = document.getElementById('gameSelect').value;
-      const uid = document.getElementById('uid').value;
-      const name = document.getElementById('name').value;
-      const match = document.getElementById('matchNumber').value;
-      const kills = parseInt(document.getElementById('kills').value);
-
-      let isFlagged = false;
-      if ((game === 'Free Fire' && kills >= 20) || (game === 'PUBG' && kills >= 15)) {
-        isFlagged = true;
-      }
-
-      const claimText = `Hello Admin, I am the winner of Match ${match}.\nGame: ${game}\nUID: ${uid}\nName: ${name}\nPlease send my prize 🏆.`;
-
-      const playerDiv = document.createElement('div');
-      playerDiv.classList.add('player');
-      playerDiv.id = `player-${uid}`;
-      playerDiv.innerHTML = `
-        🎮 <strong>${game}</strong><br>
-        🆔 UID: ${uid}<br>
-        👤 Name: ${name}<br>
-        🏷️ Match: ${match}<br>
-        🔫 Kills: ${kills}
-        ${isFlagged ? `<div class="flag">⚠️ Suspicious Kill Detected!</div>` : ''}
-        <br><button class="report-btn" onclick="reportPlayer('${uid}')">🚩 Report</button>
-        <div id="report-count-${uid}">Reports: 0</div>
-        <br><a href="https://wa.me/8801322343834?text=${encodeURIComponent(claimText)}" target="_blank">
-          <button class="claim-btn">💰 Claim Prize via WhatsApp</button>
-        </a>
-      `;
-
-      playerList.appendChild(playerDiv);
-      form.reset();
-
-      // If room already set, show it instantly
-      if (roomInfo[match]) {
-        showRoom(uid, roomInfo[match]);
-      }
-    });
-
-    function reportPlayer(uid) {
-      if (!reports[uid]) reports[uid] = 0;
-      reports[uid]++;
-      const countDiv = document.getElementById(`report-count-${uid}`);
-      countDiv.innerText = `Reports: ${reports[uid]}`;
-
-      if (reports[uid] >= 3) {
-        const playerDiv = document.getElementById(`player-${uid}`);
-        if (!playerDiv.querySelector('.flag')) {
-          const flag = document.createElement('div');
-          flag.className = 'flag';
-          flag.innerText = '⚠️ Multiple Reports Detected!';
-          playerDiv.appendChild(flag);
-        }
-      }
-    }
-
-    function setRoom() {
-      const match = document.getElementById('roomMatchNumber').value;
-      const roomID = document.getElementById('roomID').value;
-      const roomPass = document.getElementById('roomPass').value;
-
-      roomInfo[match] = { id: roomID, pass: roomPass };
-
-      const players = document.querySelectorAll('.player');
-      players.forEach(p => {
-        if (p.innerHTML.includes(`Match: ${match}`)) {
-          const uid = p.id.split('-')[1];
-          showRoom(uid, roomInfo[match]);
-        }
-      });
-
-      document.getElementById('roomID').value = '';
-      document.getElementById('roomPass').value = '';
-    }
-
-    function showRoom(uid, info) {
-      const playerDiv = document.getElementById(`player-${uid}`);
-      if (!playerDiv.querySelector('.room-info')) {
-        const roomDiv = document.createElement('div');
-        roomDiv.className = 'room-info';
-        roomDiv.innerHTML = `
-          📣 <b>Room ID:</b> ${info.id}<br>
-          🔒 <b>Password:</b> ${info.pass}
-        `;
-        playerDiv.appendChild(roomDiv);
-      }
+      const message = `Hello Shadow eSports,%0A%0AI want to join: ${tournament}%0AGame: Free Fire / PUBG%0AMy UID: ________%0AName: ________%0AMobile Number: ________%0ATransaction ID: ________`;
+      const url = `https://wa.me/88${adminNumber}?text=${message}`;
+      window.open(url, '_blank');
     }
   </script>
 
