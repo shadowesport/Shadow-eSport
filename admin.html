@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel | Shadow eSports</title>
+  <style>
+    body { background: #000; color: white; font-family: Arial; padding: 20px; }
+    h1 { text-align: center; color: #ff4444; }
+    .box { background: #111; padding: 20px; border-radius: 12px; margin: 20px auto; max-width: 800px; }
+    input, select { padding: 10px; margin: 10px 5px; border-radius: 6px; border: none; width: calc(50% - 20px); }
+    button { padding: 10px 20px; background: #ff4444; color: white; border: none; border-radius: 6px; cursor: pointer; margin: 5px; }
+    .entry { background: rgba(255,255,255,0.1); margin: 8px 0; padding: 10px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Shadow eSports Admin Panel</h1>
+  <div class="box">
+    <h2>🧾 All Signed Up Players</h2>
+    <div id="userList"></div>
+  </div>
+  <div class="box">
+    <h2>🔐 Set Room ID & Password</h2>
+    <select id="roomMatch">
+      <option>1</option><option>2</option><option>3</option><option>4</option>
+      <option>5</option><option>6</option><option>7</option><option>8</option>
+    </select>
+    <input type="text" id="roomID" placeholder="Room ID">
+    <input type="text" id="roomPass" placeholder="Password">
+    <button onclick="setRoom()">Save Room</button>
+    <div id="roomResult"></div>
+  </div>
+  <div class="box">
+    <h2>💎 Manage Diamond Packages</h2>
+    <input type="number" id="diamond" placeholder="Diamond Amount">
+    <input type="number" id="price" placeholder="Price in ৳">
+    <button onclick="addDiamond()">➕ Add / Update</button>
+    <div id="diamondList"></div>
+  </div>
+  <script>
+    const allUsers = JSON.parse(localStorage.getItem('all_users')) || [];
+    let userHTML = '';
+    allUsers.forEach((u, index) => {
+      userHTML += `<div class="entry">#${index + 1} 👤 ${u.name}<br>📧 ${u.email}</div>`;
+    });
+    document.getElementById('userList').innerHTML = userHTML || "No players found.";
+    function setRoom() {
+      const match = document.getElementById('roomMatch').value;
+      const id = document.getElementById('roomID').value;
+      const pass = document.getElementById('roomPass').value;
+      localStorage.setItem(`room_${match}`, JSON.stringify({ id, pass }));
+      document.getElementById('roomResult').innerText = `✅ Room for Match ${match} saved: ID=${id}, Pass=${pass}`;
+    }
+    let diamonds = JSON.parse(localStorage.getItem('diamond_prices')) || [];
+    function saveDiamonds() {
+      localStorage.setItem('diamond_prices', JSON.stringify(diamonds));
+      showDiamonds();
+    }
+    function addDiamond() {
+      const d = parseInt(document.getElementById('diamond').value);
+      const p = parseInt(document.getElementById('price').value);
+      if (!d || !p) return alert("Fill both fields");
+      const exist = diamonds.find(item => item.diamond === d);
+      if (exist) {
+        exist.price = p;
+      } else {
+        diamonds.push({ diamond: d, price: p });
+      }
+      saveDiamonds();
+    }
+    function deleteDiamond(d) {
+      diamonds = diamonds.filter(item => item.diamond !== d);
+      saveDiamonds();
+    }
+    function showDiamonds() {
+      let html = '';
+      diamonds.forEach((item) => {
+        html += `<div class="entry">💎 ${item.diamond} Diamonds — ৳${item.price} <button onclick="deleteDiamond(${item.diamond})">❌ Delete</button></div>`;
+      });
+      document.getElementById('diamondList').innerHTML = html || "No packages yet.";
+    }
+    showDiamonds();
+  </script>
+</body>
+</html>
