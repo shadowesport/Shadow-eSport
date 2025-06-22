@@ -1,1 +1,78 @@
-<!DOCTYPE html><html><head><title>Buy Diamonds</title></head><body>Diamond Packages Here</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy Diamonds - Shadow eSports</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: #0f0f0f;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .card {
+      background: #1e1e1e;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      border: 1px solid #444;
+    }
+    .card h3 {
+      margin: 0 0 10px;
+      color: #00ffcc;
+    }
+    .card p {
+      margin: 5px 0;
+    }
+    .btn {
+      margin-top: 10px;
+      background: #00ffcc;
+      color: #000;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛒 Buy Diamonds</h1>
+  <p>Select a diamond package and follow the payment steps.</p>
+
+  <div class="card">
+    <h3>💎 110 Diamonds</h3>
+    <p>Price: 100৳</p>
+    <button class="btn" onclick="buy('110 Diamonds', 100)">Buy Now</button>
+  </div>
+
+  <div class="card">
+    <h3>💎 220 Diamonds</h3>
+    <p>Price: 200৳</p>
+    <button class="btn" onclick="buy('220 Diamonds', 200)">Buy Now</button>
+  </div>
+
+  <div class="card">
+    <h3>💎 550 Diamonds</h3>
+    <p>Price: 500৳</p>
+    <button class="btn" onclick="buy('550 Diamonds', 500)">Buy Now</button>
+  </div>
+
+  <div class="card">
+    <h3>💎 1100 Diamonds</h3>
+    <p>Price: 1000৳</p>
+    <button class="btn" onclick="buy('1100 Diamonds', 1000)">Buy Now</button>
+  </div>
+
+  <script>
+    function buy(packageName, price) {
+      const uid = prompt(`Enter your Free Fire UID to buy ${packageName} for ${price}৳`);
+      if (uid) {
+        alert(`Send ${price}৳ to bKash/Nagad number: 01322343834\nThen WhatsApp your UID (${uid}) & Transaction ID.`);
+        window.open("https://wa.me/8801322343834?text=UID: " + uid + "%0APackage: " + packageName + "%0APaid: " + price + "৳", "_blank");
+      }
+    }
+  </script>
+</body>
+</html>
