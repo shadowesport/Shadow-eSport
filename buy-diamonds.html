@@ -1,78 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Buy Diamonds - Shadow eSports</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      background: #0f0f0f;
-      color: #fff;
+      background-color: #0e0e0e;
       font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
       padding: 20px;
     }
-    .card {
-      background: #1e1e1e;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      border: 1px solid #444;
+
+    h1 {
+      color: #00ccff;
+      margin-bottom: 20px;
     }
-    .card h3 {
-      margin: 0 0 10px;
-      color: #00ffcc;
+
+    .diamond-box {
+      background-color: #1a1a1a;
+      border: 2px solid #00ccff;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 15px auto;
+      width: 90%;
+      max-width: 400px;
     }
-    .card p {
-      margin: 5px 0;
+
+    .diamond-box h2 {
+      margin: 0;
+      font-size: 22px;
+      color: #00ffff;
     }
-    .btn {
-      margin-top: 10px;
-      background: #00ffcc;
-      color: #000;
-      padding: 8px 16px;
+
+    .price {
+      font-size: 18px;
+      margin: 10px 0;
+      color: #ccc;
+    }
+
+    .buy-btn {
+      background-color: #00cc66;
+      color: white;
       border: none;
-      border-radius: 8px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
       cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .buy-btn:hover {
+      transform: scale(1.05);
+      background-color: #00aa55;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #999;
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
-  <h1>🛒 Buy Diamonds</h1>
-  <p>Select a diamond package and follow the payment steps.</p>
 
-  <div class="card">
-    <h3>💎 110 Diamonds</h3>
-    <p>Price: 100৳</p>
-    <button class="btn" onclick="buy('110 Diamonds', 100)">Buy Now</button>
-  </div>
+  <h1>💎 Buy Diamonds</h1>
 
-  <div class="card">
-    <h3>💎 220 Diamonds</h3>
-    <p>Price: 200৳</p>
-    <button class="btn" onclick="buy('220 Diamonds', 200)">Buy Now</button>
-  </div>
+  <!-- 💎 Diamond Packages -->
+  <div id="diamond-container"></div>
 
-  <div class="card">
-    <h3>💎 550 Diamonds</h3>
-    <p>Price: 500৳</p>
-    <button class="btn" onclick="buy('550 Diamonds', 500)">Buy Now</button>
-  </div>
-
-  <div class="card">
-    <h3>💎 1100 Diamonds</h3>
-    <p>Price: 1000৳</p>
-    <button class="btn" onclick="buy('1100 Diamonds', 1000)">Buy Now</button>
-  </div>
+  <footer>
+    Shadow eSports © 2025. All rights reserved.
+  </footer>
 
   <script>
-    function buy(packageName, price) {
-      const uid = prompt(`Enter your Free Fire UID to buy ${packageName} for ${price}৳`);
-      if (uid) {
-        alert(`Send ${price}৳ to bKash/Nagad number: 01322343834\nThen WhatsApp your UID (${uid}) & Transaction ID.`);
-        window.open("https://wa.me/8801322343834?text=UID: " + uid + "%0APackage: " + packageName + "%0APaid: " + price + "৳", "_blank");
-      }
+    const adminNumber = "01322343834"; // Your WhatsApp number
+
+    const diamonds = [
+      { amount: 25, price: 28 },
+      { amount: 50, price: 44 },
+      { amount: 115, price: 82 },
+      { amount: 240, price: 161 },
+      { amount: 355, price: 238 },
+      { amount: 480, price: 316 },
+      { amount: 610, price: 394 },
+      { amount: 850, price: 551 },
+      { amount: 1090, price: 706 },
+      { amount: 1240, price: 776 },
+      { amount: 1850, price: 1166 },
+      { amount: 2090, price: 1321 },
+      { amount: 2530, price: 1536 },
+      { amount: 5060, price: 3066 },
+      { amount: 10120, price: 6106 },
+      { amount: 12650, price: 7631 },
+      { amount: 25300, price: 15306 }
+    ];
+
+    const container = document.getElementById("diamond-container");
+
+    diamonds.forEach(pkg => {
+      const div = document.createElement("div");
+      div.className = "diamond-box";
+      div.innerHTML = `
+        <h2>💎 ${pkg.amount} Diamonds</h2>
+        <div class="price">Price: ${pkg.price}৳</div>
+        <button class="buy-btn" onclick="buyNow(${pkg.amount}, ${pkg.price})">Buy Now</button>
+      `;
+      container.appendChild(div);
+    });
+
+    function buyNow(amount, price) {
+      const message = `Hello Shadow eSports,%0A%0AI want to buy: ${amount} Diamonds%0APrice: ${price}৳%0AMy Free Fire UID: ________%0ATransaction ID: ________%0AMobile Number: ________`;
+      const whatsappUrl = `https://wa.me/88${adminNumber}?text=${message}`;
+      window.open(whatsappUrl, '_blank');
     }
   </script>
+
 </body>
 </html>
