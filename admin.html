@@ -1,83 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin Panel | Shadow eSports</title>
+  <title>Admin Login - Shadow eSports</title>
   <style>
-    body { background: #000; color: white; font-family: Arial; padding: 20px; }
-    h1 { text-align: center; color: #ff4444; }
-    .box { background: #111; padding: 20px; border-radius: 12px; margin: 20px auto; max-width: 800px; }
-    input, select { padding: 10px; margin: 10px 5px; border-radius: 6px; border: none; width: calc(50% - 20px); }
-    button { padding: 10px 20px; background: #ff4444; color: white; border: none; border-radius: 6px; cursor: pointer; margin: 5px; }
-    .entry { background: rgba(255,255,255,0.1); margin: 8px 0; padding: 10px; border-radius: 8px; }
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 50px;
+      text-align: center;
+    }
+    .box {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    input {
+      padding: 10px;
+      margin-top: 10px;
+      width: 200px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      padding: 10px 20px;
+      background: #00ffcc;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h1>Shadow eSports Admin Panel</h1>
   <div class="box">
-    <h2>🧾 All Signed Up Players</h2>
-    <div id="userList"></div>
+    <h2>🔐 Admin Login</h2>
+    <input type="password" id="adminPass" placeholder="Enter Admin Password" />
+    <br>
+    <button onclick="checkPass()">Login</button>
   </div>
-  <div class="box">
-    <h2>🔐 Set Room ID & Password</h2>
-    <select id="roomMatch">
-      <option>1</option><option>2</option><option>3</option><option>4</option>
-      <option>5</option><option>6</option><option>7</option><option>8</option>
-    </select>
-    <input type="text" id="roomID" placeholder="Room ID">
-    <input type="text" id="roomPass" placeholder="Password">
-    <button onclick="setRoom()">Save Room</button>
-    <div id="roomResult"></div>
+
+  <div id="adminPanel" style="display: none; margin-top: 30px;">
+    <h2>Welcome, Admin!</h2>
+    <p>🎮 Tournament data, players list, and transactions will appear here.</p>
+    <!-- You can add more admin tools here -->
   </div>
-  <div class="box">
-    <h2>💎 Manage Diamond Packages</h2>
-    <input type="number" id="diamond" placeholder="Diamond Amount">
-    <input type="number" id="price" placeholder="Price in ৳">
-    <button onclick="addDiamond()">➕ Add / Update</button>
-    <div id="diamondList"></div>
-  </div>
+
   <script>
-    const allUsers = JSON.parse(localStorage.getItem('all_users')) || [];
-    let userHTML = '';
-    allUsers.forEach((u, index) => {
-      userHTML += `<div class="entry">#${index + 1} 👤 ${u.name}<br>📧 ${u.email}</div>`;
-    });
-    document.getElementById('userList').innerHTML = userHTML || "No players found.";
-    function setRoom() {
-      const match = document.getElementById('roomMatch').value;
-      const id = document.getElementById('roomID').value;
-      const pass = document.getElementById('roomPass').value;
-      localStorage.setItem(`room_${match}`, JSON.stringify({ id, pass }));
-      document.getElementById('roomResult').innerText = `✅ Room for Match ${match} saved: ID=${id}, Pass=${pass}`;
-    }
-    let diamonds = JSON.parse(localStorage.getItem('diamond_prices')) || [];
-    function saveDiamonds() {
-      localStorage.setItem('diamond_prices', JSON.stringify(diamonds));
-      showDiamonds();
-    }
-    function addDiamond() {
-      const d = parseInt(document.getElementById('diamond').value);
-      const p = parseInt(document.getElementById('price').value);
-      if (!d || !p) return alert("Fill both fields");
-      const exist = diamonds.find(item => item.diamond === d);
-      if (exist) {
-        exist.price = p;
+    function checkPass() {
+      const input = document.getElementById("adminPass").value;
+      const correctPassword = "kabbo123"; // You can change this password
+
+      if (input === correctPassword) {
+        document.querySelector(".box").style.display = "none";
+        document.getElementById("adminPanel").style.display = "block";
       } else {
-        diamonds.push({ diamond: d, price: p });
+        alert("❌ Wrong password!");
       }
-      saveDiamonds();
     }
-    function deleteDiamond(d) {
-      diamonds = diamonds.filter(item => item.diamond !== d);
-      saveDiamonds();
-    }
-    function showDiamonds() {
-      let html = '';
-      diamonds.forEach((item) => {
-        html += `<div class="entry">💎 ${item.diamond} Diamonds — ৳${item.price} <button onclick="deleteDiamond(${item.diamond})">❌ Delete</button></div>`;
-      });
-      document.getElementById('diamondList').innerHTML = html || "No packages yet.";
-    }
-    showDiamonds();
   </script>
 </body>
 </html>
