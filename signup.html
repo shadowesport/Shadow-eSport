@@ -1,41 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Signup | Shadow eSports</title>
-  <style>
-    body { background: #000; color: white; font-family: Arial; padding: 40px; text-align: center; }
-    .box { background: #111; padding: 30px; border-radius: 12px; max-width: 400px; margin: auto; }
-    input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 6px; border: none; }
-    button { background: #ff4444; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
-    a { color: #00f; display: block; margin-top: 10px; }
-  </style>
+  <title>Signup - Shadow eSports</title>
 </head>
 <body>
-  <h1>Signup to Shadow eSports</h1>
-  <div class="box">
-    <input type="text" id="name" placeholder="Full Name" required>
-    <input type="email" id="email" placeholder="Email Address" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button onclick="signup()">Create Account</button>
-    <a href="login.html">Already have an account? Login</a>
-  </div>
-  <script>
-    function signup() {
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const pass = document.getElementById('password').value;
-      if (name && email && pass) {
-        localStorage.setItem('shadow_user', JSON.stringify({ name, email, pass }));
-        let users = JSON.parse(localStorage.getItem('all_users')) || [];
-        users.push({ name, email, pass });
-        localStorage.setItem('all_users', JSON.stringify(users));
-        alert('Signup successful! WhatsApp confirmation sending...');
-        const msg = `🆕 New Signup on Shadow eSports!\n👤 Name: ${name}\n📧 Email: ${email}\n🔑 Password: *****`;
-        const waLink = `https://wa.me/8801322343834?text=${encodeURIComponent(msg)}`;
-        window.open(waLink, '_blank');
-        window.location.href = 'tournament.html';
-      } else {
-        alert('Please fill all fields');
+  <h2>Signup</h2>
+  <input id="email" type="email" placeholder="Email"><br>
+  <input id="password" type="password" placeholder="Password"><br>
+  <button onclick="signUp()">Signup</button>
+
+  <script type="module" src="firebase.js"></script>
+  <script type="module">
+    import { firebaseData } from './firebase.js';
+    const { auth, createUserWithEmailAndPassword, db, doc, setDoc } = firebaseData;
+
+    window.signUp = async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+          email: email,
+          balance: 0
+        });
+        alert("Signup successful!");
+        window.location.href = "wallet.html";
+      } catch (error) {
+        alert(error.message);
       }
     }
   </script>
