@@ -2,118 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shadow eSports - Home</title>
+  <title>Shadow eSports</title>
   <style>
     body {
-      background-color: #0e0e0e;
-      font-family: 'Arial', sans-serif;
-      color: #ffffff;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
-
-    h1 {
-      color: #ff0055;
-      margin: 30px 0;
-    }
-
-    .social-btn, .main-btn {
-      display: inline-block;
-      margin: 10px;
-      padding: 14px 24px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: bold;
+      background-color: #0d0d0d;
+      font-family: Arial, sans-serif;
       color: white;
-      cursor: pointer;
-      transition: 0.3s;
-      min-width: 260px;
+      text-align: center;
+      padding: 30px;
     }
-
-    .yt { background-color: #FF0000; }
-    .tk { background-color: #000000; }
-    .fb { background-color: #3b5998; }
-    .tg { background-color: #0088cc; }
-
-    .diamond { background-color: #00ccff; }
-    .money { background-color: #00cc66; }
-    .tournament { background-color: #cc00cc; }
-    .signin { background-color: #ffaa00; }
-
-    .social-btn:hover,
-    .main-btn:hover {
-      opacity: 0.85;
-      transform: scale(1.03);
+    h2 {
+      color: #ff1744;
+      font-size: 26px;
+      margin-bottom: 20px;
     }
-
-    footer {
-      margin-top: 50px;
-      padding: 20px;
-      background-color: #1a1a1a;
-      color: #aaa;
-      font-size: 14px;
-    }
-
     .section-title {
-      margin-top: 40px;
-      font-size: 20px;
-      color: #00ffff;
+      color: #00b0ff;
+      font-size: 18px;
+      margin: 40px 0 10px;
+    }
+    .button-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .button-grid a, .button-grid button {
+      text-decoration: none;
+    }
+    .button-grid button {
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .yt1 { background-color: red; color: white; }
+    .yt2 { background-color: #d50000; color: white; }
+    .tt1, .tt2 { background-color: black; color: white; }
+    .tg  { background-color: #1e88e5; color: white; }
+    .fb  { background-color: #3b5998; color: white; }
+    .diamonds { background-color: #00bcd4; color: black; }
+    .money { background-color: #4caf50; color: white; }
+    .tournament { background-color: #e040fb; color: black; }
+    .signin, .admin { background-color: gold; color: black; }
+    button:hover { opacity: 0.85; }
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
 
-  <h1>🌐 Connect with Shadow eSports</h1>
+  <h2>🌐 Connect with Shadow eSports</h2>
+  <div class="button-grid">
+    <a href="#" onclick="window.open('https://www.youtube.com/@shadowesports108','_blank')"><button class="yt1">📺 YouTube (Promotional)</button></a>
+    <a href="#" onclick="window.open('https://www.youtube.com/@shadowesports108','_blank')"><button class="yt2">📺 YouTube (Blogging)</button></a>
+    <a href="https://www.tiktok.com/@ewr.kabbo317" target="_blank"><button class="tt1">🎵 TikTok 1</button></a>
+    <a href="https://www.tiktok.com/@xr.sagor99" target="_blank"><button class="tt2">🎵 TikTok 2</button></a>
+    <a href="https://t.me/shadowgarden12389" target="_blank"><button class="tg">💬 Join Telegram</button></a>
+    <a href="https://www.facebook.com/share/1GhmfdDiaB/" target="_blank"><button class="fb">📘 Facebook</button></a>
+  </div>
 
-  <!-- Social Buttons -->
-  <a href="https://youtube.com/@shadowesports-h8f" target="_blank">
-    <button class="social-btn yt">🎥 YouTube (Promotional)</button>
-  </a>
-
-  <a href="https://youtube.com/@shadow-e1u" target="_blank">
-    <button class="social-btn yt">📺 YouTube (Blogging)</button>
-  </a>
-
-  <a href="https://www.tiktok.com/@ewr.kabbo317" target="_blank">
-    <button class="social-btn tk">🎵 TikTok 1</button>
-  </a>
-
-  <a href="https://www.tiktok.com/@xr.sagor99" target="_blank">
-    <button class="social-btn tk">🎶 TikTok 2</button>
-  </a>
-
-  <a href="https://t.me/shadowgarden12389" target="_blank">
-    <button class="social-btn tg">📣 Join Telegram</button>
-  </a>
-
-  <a href="https://www.facebook.com/share/1GhmfdDiaB/" target="_blank">
-    <button class="social-btn fb">📘 Facebook</button>
-  </a>
-
-  <!-- 🔥 Navigation Buttons -->
   <div class="section-title">🚀 Main Features</div>
-
-  <a href="buy-diamonds.html">
-    <button class="main-btn diamond">💎 Buy Diamonds</button>
-  </a>
-
-  <a href="add-money.html">
-    <button class="main-btn money">💳 Add Money</button>
-  </a>
-
-  <a href="tournaments.html">
-    <button class="main-btn tournament">🎮 Play Tournament</button>
-  </a>
-
-  <a href="signin.html">
-    <button class="main-btn signin">🔐 Sign In</button>
-  </a>
+  <div class="button-grid">
+    <a href="buy-diamonds.html"><button class="diamonds">💎 Buy Diamonds</button></a>
+    <a href="add-money.html"><button class="money">💰 Add Money</button></a>
+    <a href="match1.html"><button class="tournament">🎮 Play Tournament</button></a>
+    <a href="#"><button class="signin">🟡 Sign In</button></a>
+    <button class="admin" onclick="goToAdmin()">🔐 Admin Panel</button>
+  </div>
 
   <footer>
-    © 2025 Shadow eSports. All rights reserved.
+    &copy; 2025 Shadow eSports. All rights reserved.
   </footer>
+
+  <script>
+    function goToAdmin() {
+      var pass = prompt("🔐 Enter Admin Password:");
+      if (pass === "shadow123") {
+        window.location.href = "admin.html";
+      } else if (pass !== null) {
+        alert("❌ Incorrect Password!");
+      }
+    }
+  </script>
 
 </body>
 </html>
