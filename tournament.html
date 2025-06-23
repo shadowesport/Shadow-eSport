@@ -1,28 +1,56 @@
-<script>
-  document.getElementById("joinForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shadow eSports - Tournament</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    h1 {
+      color: #ff1744;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .match {
+      background: #1e1e1e;
+      padding: 20px;
+      border-left: 6px solid #f44336;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+    .match h2 {
+      margin-top: 0;
+      color: #00b0ff;
+    }
+  </style>
+</head>
+<body>
 
-    const uid = e.target.uid.value;
-    const ign = e.target.ign.value;
-    const game = e.target.game.value;
-    const match = e.target.match.value;
+  <h1>🔥 Shadow eSports Tournaments 🔥</h1>
 
-    const result = `
-      ✅ <b>Joined Successfully!</b><br>
-      🧑 Name: ${ign}<br>
-      🆔 UID: ${uid}<br>
-      🎮 Game: ${game}<br>
-      🎯 Match: ${match}<br><br>
-      <b>📲 WhatsApp Submission Format:</b><br>
-      Name: ${ign}<br>
-      UID: ${uid}<br>
-      Game: ${game}<br>
-      Match: ${match}
-    `;
+  <div class="match">
+    <h2>Match 1: Battle Royale</h2>
+    <p>Entry Fee: 25৳</p>
+    <p>Per Kill: 10৳</p>
+    <p>Top 1: 70৳ | Top 2: 50৳ | Top 3: 40৳</p>
+  </div>
 
-    // 👉 This line was broken in your code
-    document.getElementById("result").innerHTML = result;
+  <div class="match">
+    <h2>Match 2: Lone Wolf</h2>
+    <p>Entry Fee: 60৳</p>
+    <p>Booyah: 75৳</p>
+    <p>Total Players: 4</p>
+  </div>
 
-    e.target.reset();
-  });
-</script>
+  <div class="match">
+    <h2>Match 3: Clash Squad</h2>
+    <p>Entry Fee: 80৳ per squad</p>
+    <p>Booyah Prize: 400৳</p>
+  </div>
+
+</body>
+</html>
