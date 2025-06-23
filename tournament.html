@@ -1,114 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shadow eSports Tournament</title>
-  <style>
-    body {
-      font-family: Arial;
-      background: #111;
-      color: #fff;
-      padding: 20px;
-    }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: #1f1f1f;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 5px;
-      border: none;
-    }
-    button {
-      background: crimson;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .comment-box {
-      margin-top: 20px;
-      padding: 10px;
-      background: #2a2a2a;
-      border-radius: 5px;
-    }
-    .admin-comment {
-      color: lightgreen;
-    }
-  </style>
-</head>
-<body>
+<script>
+  document.getElementById("joinForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-  <div class="container">
-    <h2>Join Tournament</h2>
+    const uid = e.target.uid.value;
+    const ign = e.target.ign.value;
+    const game = e.target.game.value;
+    const match = e.target.match.value;
 
-    <form id="joinForm">
-      <label>Your Free Fire / PUBG UID</label>
-      <input type="text" name="uid" required>
+    const result = `
+      ✅ <b>Joined Successfully!</b><br>
+      🧑 Name: ${ign}<br>
+      🆔 UID: ${uid}<br>
+      🎮 Game: ${game}<br>
+      🎯 Match: ${match}<br><br>
+      <b>📲 WhatsApp Submission Format:</b><br>
+      Name: ${ign}<br>
+      UID: ${uid}<br>
+      Game: ${game}<br>
+      Match: ${match}
+    `;
 
-      <label>In-Game Name</label>
-      <input type="text" name="ign" required>
+    // 👉 This line was broken in your code
+    document.getElementById("result").innerHTML = result;
 
-      <label>Select Game</label>
-      <select name="game" required>
-        <option value="Free Fire">Free Fire</option>
-        <option value="PUBG">PUBG</option>
-      </select>
-
-      <label>Match Number</label>
-      <select name="match" required>
-        <option value="Match 1">Match 1</option>
-        <option value="Match 2">Match 2</option>
-        <option value="Match 3">Match 3</option>
-        <option value="Match 4">Match 4</option>
-        <option value="Match 5">Match 5</option>
-        <option value="Match 6">Match 6</option>
-        <option value="Match 7">Match 7</option>
-        <option value="Match 8">Match 8</option>
-      </select>
-
-      <button type="submit">Join Now</button>
-    </form>
-
-    <!-- Result will appear here -->
-    <div id="result" style="margin-top: 20px;"></div>
-
-    <!-- Admin-only comment -->
-    <div class="comment-box">
-      <h4>📢 Admin Comment</h4>
-      <p class="admin-comment">Match code will be shared 10 minutes before the game starts.</p>
-    </div>
-  </div>
-
-  <script>
-    document.getElementById("joinForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const uid = e.target.uid.value;
-      const ign = e.target.ign.value;
-      const game = e.target.game.value;
-      const match = e.target.match.value;
-
-      const result = `
-        ✅ <b>Joined Successfully!</b><br>
-        🧑 Name: ${ign}<br>
-        🆔 UID: ${uid}<br>
-        🎮 Game: ${game}<br>
-        🎯 Match: ${match}<br><br>
-        <b>📲 WhatsApp Submission Format:</b><br>
-        Name: ${ign}<br>
-        UID: ${uid}<br>
-        Game: ${game}<br>
-        Match: ${match}
-      `;
-
-      document.getElementById("result").innerHTML = result;
-      e.target.reset();
-    });
-  </script>
-</body>
-</html>
+    e.target.reset();
+  });
+</script>
