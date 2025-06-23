@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Your Wallet - Shadow eSports</title>
+</head>
+<body>
+  <h2>🪙 Your Wallet</h2>
+  <div id="balance">Loading...</div>
+
+  <script type="module" src="firebase.js"></script>
+  <script type="module">
+    import { firebaseData } from './firebase.js';
+    const { auth, onAuthStateChanged, db, doc, getDoc } = firebaseData;
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docSnap = await getDoc(doc(db, "users", user.uid));
+        if (docSnap.exists()) {
+          document.getElementById("balance").innerText = `Balance: ${docSnap.data().balance}৳`;
+        } else {
+          document.getElementById("balance").innerText = "No user data!";
+        }
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</body>
+</html>
