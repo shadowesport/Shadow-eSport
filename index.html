@@ -4,95 +4,40 @@
   <meta charset="UTF-8">
   <title>Shadow eSports - Home</title>
   <style>
-    body {
-      background-color: #0d0d0d;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 30px;
-    }
-    h2 {
-      color: #ff1744;
-      font-size: 26px;
-      margin-bottom: 20px;
-    }
-    .section-title {
-      color: #00b0ff;
-      font-size: 18px;
-      margin: 40px 0 10px;
-    }
-    .button-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-    .button-grid a, .button-grid button {
-      text-decoration: none;
-    }
-    .button-grid button {
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .yt1 { background-color: red; color: white; }
-    .yt2 { background-color: #d50000; color: white; }
-    .tt1, .tt2 { background-color: black; color: white; }
-    .tg  { background-color: #1e88e5; color: white; }
-    .fb  { background-color: #3b5998; color: white; }
-    .diamonds { background-color: #00c853; color: white; }
-    .money { background-color: #4caf50; color: white; }
-    .tournament { background-color: #f44336; color: white; }
-    .signin, .admin { background-color: #6a1b9a; color: white; }
-    button:hover { opacity: 0.85; }
-
-    footer {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #aaa;
-    }
+    body { background-color: #0d0d0d; color: white; font-family: Arial; text-align: center; padding: 30px; }
+    .button-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; }
+    .button-grid a button { padding: 10px 20px; font-size: 16px; border-radius: 8px; border: none; cursor: pointer; }
+    .yt { background: red; color: white; } .fb { background: #3b5998; color: white; }
+    .tg { background: #229ED9; color: white; } .tt { background: black; color: white; }
+    .main { background: #4CAF50; color: white; } .admin { background: #9C27B0; color: white; }
+    footer { margin-top: 30px; font-size: 14px; color: #aaa; }
   </style>
 </head>
 <body>
-
-  <h2>🌐 Connect with Shadow eSports</h2>
+  <h1>🔥 Welcome to Shadow eSports 🔥</h1>
   <div class="button-grid">
-    <a href="https://www.youtube.com/@shadowesports108"><button class="yt1">YouTube</button></a>
-    <a href="https://www.youtube.com/@shadowesports108"><button class="yt2">YT Channel</button></a>
-    <a href="https://www.tiktok.com/@ewr.kabbo317"><button class="tt1">TikTok 1</button></a>
-    <a href="https://www.tiktok.com/@xr.sagor99"><button class="tt2">TikTok 2</button></a>
-    <a href="https://t.me/shadowgarden12389"><button class="tg">Telegram</button></a>
+    <a href="https://www.youtube.com/@shadowesports108"><button class="yt">YouTube</button></a>
     <a href="https://www.facebook.com/share/1GhmfdDiaB/"><button class="fb">Facebook</button></a>
+    <a href="https://t.me/shadowgarden12389"><button class="tg">Telegram</button></a>
+    <a href="https://www.tiktok.com/@ewr.kabbo317"><button class="tt">TikTok</button></a>
   </div>
-
-  <div class="section-title">🚀 Main Pages</div>
-  <div class="button-grid">
-    <a href="buy-diamonds.html"><button class="diamonds">Buy Diamonds</button></a>
-    <a href="add-money.html"><button class="money">Add Money</button></a>
-    <a href="tournament.html"><button class="tournament">Tournament</button></a>
-    <a href="signup.html"><button class="signin">Sign Up</button></a>
+  <div class="button-grid" style="margin-top: 40px;">
+    <a href="tournament.html"><button class="main">🎮 Tournament</button></a>
+    <a href="buy-diamonds.html"><button class="main">💎 Buy Diamonds</button></a>
+    <a href="add-money.html"><button class="main">💰 Add Money</button></a>
+    <a href="signup.html"><button class="main">🔐 Sign Up</button></a>
     <button class="admin" onclick="goToAdmin()">Admin</button>
   </div>
-
-  <footer>
-    &copy; 2025 Shadow eSports. All rights reserved.
-  </footer>
-
+  <footer>© 2025 Shadow eSports</footer>
   <script>
     function goToAdmin() {
-      var pass = prompt("🔐 Enter Admin Password:");
+      var pass = prompt("Enter Admin Password:");
       if (pass === "shadow123") {
         window.location.href = "admin.html";
-      } else if (pass !== null) {
-        alert("❌ Incorrect Password!");
+      } else {
+        alert("Wrong password!");
       }
     }
   </script>
-
 </body>
 </html>
