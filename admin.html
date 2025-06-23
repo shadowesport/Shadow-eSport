@@ -1,131 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Admin Panel - Shadow eSports</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      background: #0f0f0f;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      padding: 30px;
-    }
-    .section {
-      background: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 25px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 12px;
-      border: none;
-      border-radius: 5px;
-    }
-    button {
-      background: #00ffcc;
-      border: none;
-      padding: 10px 15px;
-      color: #000;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .hidden { display: none; }
-  </style>
 </head>
 <body>
 
-  <!-- 🔐 Admin Login -->
-  <div id="loginSection">
-    <h2>🔐 Admin Login</h2>
-    <input type="password" id="adminPass" placeholder="Enter Admin Password">
-    <button onclick="checkLogin()">Login</button>
-  </div>
+<!-- 🔐 Firebase Admin Protection -->
+<script type="module">
+  import { firebaseData } from './firebase.js';
+  const { auth, onAuthStateChanged } = firebaseData;
 
-  <div id="adminPanel" class="hidden">
-    <h1>👑 Shadow eSports Admin Panel</h1>
+  onAuthStateChanged(auth, (user) => {
+    if (!user || user.email !== "shadowesports108@gmail.com") {
+      alert("❌ Access denied. You are not the admin.");
+      window.location.href = "index.html"; // redirect if not admin
+    }
+  });
+</script>
 
-    <!-- 💎 Diamond Price Update -->
-    <div class="section">
-      <h3>💎 Update Diamond Package Prices</h3>
-      <input type="text" id="diamond1" placeholder="110 Diamonds - 100৳">
-      <input type="text" id="diamond2" placeholder="220 Diamonds - 200৳">
-      <input type="text" id="diamond3" placeholder="550 Diamonds - 500৳">
-      <input type="text" id="diamond4" placeholder="1100 Diamonds - 1000৳">
-      <button onclick="savePrices()">Save Prices</button>
-    </div>
+<h2>🛠️ Admin Panel (Only for shadowesports108@gmail.com)</h2>
 
-    <!-- 💬 Comment Box -->
-    <div class="section">
-      <h3>📣 Tournament Comment</h3>
-      <textarea id="commentMsg" rows="4" placeholder="Write tournament update..."></textarea>
-      <button onclick="postComment()">Post Comment</button>
-    </div>
+<!-- 💰 Add Money Requests -->
+<h3>💸 Pending Add Money Requests</h3>
+<div id="requests">Loading...</div>
 
-    <!-- 🎮 Room Code Section -->
-    <div class="section">
-      <h3>🎮 Room Code per Match</h3>
-      <input type="text" id="match1" placeholder="Match 1 Room Code">
-      <input type="text" id="match2" placeholder="Match 2 Room Code">
-      <input type="text" id="match3" placeholder="Match 3 Room Code">
-      <input type="text" id="match4" placeholder="Match 4 Room Code">
-      <input type="text" id="match5" placeholder="Match 5 Room Code">
-      <button onclick="saveRoomCodes()">Save Room Codes</button>
-    </div>
+<!-- 💎 Diamond Package Price Control -->
+<h3>💎 Diamond Prices</h3>
+<div id="diamond-prices"></div>
+<input id="package-name" placeholder="e.g. 100 Diamonds">
+<input id="package-price" placeholder="e.g. 90৳">
+<button onclick="updatePrice()">💾 Save Price</button>
 
-    <!-- 📲 WhatsApp Notification -->
-    <div class="section">
-      <h3>📲 Trigger WhatsApp Notification</h3>
-      <input type="text" id="userEmail" placeholder="New signup email">
-      <input type="text" id="userPass" placeholder="Signup password">
-      <button onclick="sendSignup()">Notify Signup</button>
-      <br><br>
-      <input type="text" id="uid" placeholder="Player UID">
-      <button onclick="sendUID()">Notify UID Join</button>
-    </div>
+<script type="module" src="firebase.js"></script>
+<script type="module">
+  import { firebaseData } from './firebase.js';
+  const { db, getDoc, getDocs, doc, setDoc, updateDoc, collection, deleteDoc } = firebaseData;
 
-  </div>
+  const requestsDiv = document.getElementById("requests");
+  const priceDiv = document.getElementById("diamond-prices");
 
-  <script>
-    function checkLogin() {
-      const pass = document.getElementById('adminPass').value;
-      if (pass === "kabbo123") {
-        document.getElementById('loginSection').classList.add("hidden");
-        document.getElementById('adminPanel').classList.remove("hidden");
-      } else {
-        alert("❌ Wrong password!");
+  // ✅ Load Add Money Requests
+  async function loadRequests() {
+    const querySnapshot = await getDocs(collection(db, "addMoneyRequests"));
+    if (querySnapshot.empty) {
+      requestsDiv.innerText = "No requests.";
+      return;
+    }
+
+    querySnapshot.forEach((req) => {
+      const data = req.data();
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = `
+        <p>📧 ${data.email || "No email"}<br>
+        💸 Amount: ${data.amount}৳<br>
+        🔁 TXN ID: ${data.txn}<br>
+        <button onclick="approve('${req.id}', '${data.uid}', ${data.amount})">✅ Approve</button>
+        </p><hr>`;
+      requestsDiv.appendChild(wrapper);
+    });
+  }
+
+  // ✅ Approve & Add Balance
+  window.approve = async (requestId, uid, amount) => {
+    const userRef = doc(db, "users", uid);
+    const userSnap = await getDoc(userRef);
+    let balance = 0;
+    if (userSnap.exists()) {
+      balance = userSnap.data().balance || 0;
+    }
+    await updateDoc(userRef, { balance: balance + amount });
+    await deleteDoc(doc(db, "addMoneyRequests", requestId));
+    alert("Approved & balance updated!");
+    location.reload();
+  };
+
+  // 💎 Load Diamond Prices
+  async function loadDiamondPrices() {
+    const snap = await getDoc(doc(db, "settings", "diamondPrices"));
+    if (snap.exists()) {
+      const prices = snap.data();
+      priceDiv.innerHTML = "";
+      for (const [key, value] of Object.entries(prices)) {
+        priceDiv.innerHTML += `<p>${key} ➤ ${value}৳</p>`;
       }
+    } else {
+      priceDiv.innerText = "No diamond price data found.";
     }
+  }
 
-    function savePrices() {
-      alert("✅ Diamond prices saved (local only)!");
-    }
+  // 💾 Update Price
+  window.updatePrice = async () => {
+    const name = document.getElementById("package-name").value;
+    const price = document.getElementById("package-price").value;
+    if (!name || !price) return alert("Please fill both fields!");
+    const ref = doc(db, "settings", "diamondPrices");
+    const snap = await getDoc(ref);
+    let existing = {};
+    if (snap.exists()) existing = snap.data();
+    existing[name] = price;
+    await setDoc(ref, existing);
+    alert("Price updated successfully!");
+    loadDiamondPrices();
+  };
 
-    function postComment() {
-      let msg = document.getElementById("commentMsg").value;
-      if (msg.trim()) alert("🗨️ Comment Posted:\n" + msg);
-    }
-
-    function saveRoomCodes() {
-      alert("✅ Room codes saved (local only)!");
-    }
-
-    function sendSignup() {
-      const email = document.getElementById("userEmail").value;
-      const pass = document.getElementById("userPass").value;
-      const msg = `🆕 New Signup on Shadow eSports!\n📧 Email: ${email}\n🔑 Password: ${pass}`;
-      window.open(`https://wa.me/8801322343834?text=${encodeURIComponent(msg)}`, "_blank");
-    }
-
-    function sendUID() {
-      const uid = document.getElementById("uid").value;
-      const msg = `🎮 New Player UID Join:\nUID: ${uid}`;
-      window.open(`https://wa.me/8801322343834?text=${encodeURIComponent(msg)}`, "_blank");
-    }
-  </script>
+  // 📥 Auto Load on Page Load
+  loadRequests();
+  loadDiamondPrices();
+</script>
 
 </body>
 </html>
