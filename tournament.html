@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shadow eSports Tournament</title>
   <style>
     body {
@@ -48,10 +48,10 @@
     <h2>Join Tournament</h2>
     <form id="joinForm">
       <label>Your Free Fire / PUBG UID</label>
-      <input type="text" name="uid" required />
+      <input type="text" name="uid" required>
 
       <label>In-Game Name</label>
-      <input type="text" name="ign" required />
+      <input type="text" name="ign" required>
 
       <label>Select Game</label>
       <select name="game" required>
@@ -76,10 +76,10 @@
 
     <div id="result" style="margin-top: 20px;"></div>
 
-    <!-- Admin Comment Box (Only visible if payment is verified) -->
+    <!-- Admin Comment Box (Only visible to paid users) -->
     <div class="comment-box">
-      <h4>📣 Admin Comment</h4>
-      <p class="admin-comment">Match Room Code will be shared here 5 mins before match.</p>
+      <h4>📢 Admin Comment</h4>
+      <p class="admin-comment">Match code will be shared 10 minutes before game start.</p>
     </div>
   </div>
 
@@ -108,6 +108,5 @@
       e.target.reset();
     });
   </script>
-
 </body>
 </html>
