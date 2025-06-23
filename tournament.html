@@ -34,6 +34,34 @@
       margin: 0;
       color: #00b0ff;
     }
+
+    /* Admin Comment Box */
+    .comment-section {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 40px auto;
+      border-left: 5px solid #4caf50;
+    }
+    .comment-section h3 {
+      color: #4caf50;
+      margin-top: 0;
+    }
+    .comment-box {
+      background: #2a2a2a;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .comment-author {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    .comment-text {
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -48,6 +76,22 @@
   <a class="match-link" href="match6.html"><h2>Match 6</h2></a>
   <a class="match-link" href="match7.html"><h2>Match 7</h2></a>
   <a class="match-link" href="match8.html"><h2>Match 8</h2></a>
+
+  <!-- Admin-only Comment Box -->
+  <div class="comment-section">
+    <h3>📢 Admin Announcements</h3>
+
+    <div class="comment-box">
+      <div class="comment-author">Admin • 23 June 2025</div>
+      <div class="comment-text">Match 1 room code will be shared 10 minutes before start.</div>
+    </div>
+
+    <div class="comment-box">
+      <div class="comment-author">Admin • 23 June 2025</div>
+      <div class="comment-text">All players must join with correct UID, or they will be disqualified.</div>
+    </div>
+
+  </div>
 
 </body>
 </html>
