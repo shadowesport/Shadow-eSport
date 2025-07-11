@@ -3,112 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shadow eSports Admin Panel</title>
+  <title>Admin Panel - Match 1</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #121212; color: #eee; }
-    header { background: #222; padding: 20px; text-align: center; }
-    h1 { margin: 0; }
-    .login-form, .admin-panel { max-width: 600px; margin: 30px auto; background: #1e1e1e; padding: 20px; border-radius: 8px; }
-    input[type="text"], input[type="password"] { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
-    button { padding: 10px 20px; border: none; border-radius: 5px; background: #ff3c00; color: #fff; cursor: pointer; }
+    body { font-family: Arial; background: #111; color: #fff; padding: 20px; }
+    h1 { text-align: center; color: #ff3c00; }
     table { width: 100%; border-collapse: collapse; margin-top: 20px; }
     th, td { border: 1px solid #444; padding: 10px; text-align: left; }
-    th { background: #333; }
-    #loginMsg { color: #f44336; }
+    th { background: #222; }
+    button { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; }
+    .approve { background: green; color: white; }
+    .remove { background: crimson; color: white; }
   </style>
 </head>
 <body>
+  <h1>Admin Panel - Match 1</h1>
 
-<header>
-  <h1>Shadow eSports Admin Panel</h1>
-</header>
-
-<div class="login-form" id="loginForm">
-  <h2>Admin Login</h2>
-  <input type="text" id="email" placeholder="Enter email" />
-  <input type="password" id="password" placeholder="Enter password" />
-  <button onclick="login()">Login</button>
-  <p id="loginMsg"></p>
-</div>
-
-<div class="admin-panel" id="adminPanel" style="display:none;">
-  <h2>Tournament Entries</h2>
   <table>
     <thead>
       <tr>
-        <th>Player UID</th>
-        <th>Tournament</th>
-        <th>Entry Fee Paid</th>
-        <th>Payment ID</th>
+        <th>Free Fire UID</th>
+        <th>Player Name</th>
+        <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody id="entriesTable">
-      <!-- Entries will appear here -->
+    <tbody id="playerTable">
+      <!-- Dynamic rows here -->
     </tbody>
   </table>
-  <button onclick="logout()">Logout</button>
-</div>
 
-<script>
-  // Set your admin credentials here
-  const adminEmail = "shadowesports108@gmail.com";
-  const adminPassword = "*K@bbo67@#";
+  <script>
+    const player = JSON.parse(localStorage.getItem("match1_player"));
+    const table = document.getElementById("playerTable");
 
-  const tournamentEntries = [
-    { uid: "FF12345", tournament: "Battle Royale", paid: "25৳", paymentId: "TXN001" },
-    { uid: "PUBG6789", tournament: "Clash Squad", paid: "80৳", paymentId: "TXN002" },
-    { uid: "FF54321", tournament: "Lone Wolf", paid: "60৳", paymentId: "TXN003" },
-  ];
-
-  function login() {
-    const emailInput = document.getElementById("email").value.trim();
-    const passInput = document.getElementById("password").value.trim();
-    const msg = document.getElementById("loginMsg");
-
-    if(emailInput === adminEmail && passInput === adminPassword) {
-      document.getElementById("loginForm").style.display = "none";
-      document.getElementById("adminPanel").style.display = "block";
-      msg.textContent = "";
-      loadEntries();
-    } else {
-      msg.textContent = "Incorrect email or password!";
-    }
-  }
-
-  function logout() {
-    document.getElementById("loginForm").style.display = "block";
-    document.getElementById("adminPanel").style.display = "none";
-    document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
-    document.getElementById("loginMsg").textContent = "";
-  }
-
-  function loadEntries() {
-    const tbody = document.getElementById("entriesTable");
-    tbody.innerHTML = "";
-    tournamentEntries.forEach((entry, i) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${entry.uid}</td>
-        <td>${entry.tournament}</td>
-        <td>${entry.paid}</td>
-        <td>${entry.paymentId}</td>
-        <td>
-          <button onclick="removeEntry(${i})" style="background:#e53935;color:#fff;border:none;padding:5px 10px;cursor:pointer;border-radius:4px;">Remove</button>
-        </td>
+    if (player) {
+      table.innerHTML = `
+        <tr>
+          <td>${player.uid}</td>
+          <td>${player.name}</td>
+          <td id="statusCell">${player.status}</td>
+          <td>
+            <button class="approve" onclick="approve()">Approve</button>
+            <button class="remove" onclick="remove()">Remove</button>
+          </td>
+        </tr>
       `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function removeEntry(index) {
-    if(confirm("Are you sure you want to remove this entry?")) {
-      tournamentEntries.splice(index, 1);
-      loadEntries();
+    } else {
+      table.innerHTML = `<tr><td colspan="4">No players joined yet.</td></tr>`;
     }
-  }
-</script>
 
+    function approve() {
+      player.status = "approved";
+      localStorage.setItem("match1_player", JSON.stringify(player));
+      document.getElementById("statusCell").innerText = "approved";
+      alert("Approved! Room info will now show on player side.");
+    }
+
+    function remove() {
+      localStorage.removeItem("match1_player");
+      location.reload();
+    }
+  </script>
 </body>
 </html>
