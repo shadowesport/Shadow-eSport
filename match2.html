@@ -1,6 +1,80 @@
-<form>
-  <label for="uid">Enter Your Free Fire/PUBG UID:</label><br />
-  <input type="text" id="uid" name="uid" placeholder="Enter UID" required><br /><br />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Match 2 - Clash Squad</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #0f0f0f; color: #fff; padding: 20px; }
+    header { display: flex; align-items: center; margin-bottom: 20px; }
+    .logo img { width: 50px; margin-right: 10px; }
+    .logo span { font-size: 24px; font-weight: bold; color: #ff3c00; }
+    label, input, button { display: block; width: 100%; }
+    input { padding: 10px; margin-top: 8px; border-radius: 5px; border: none; background: #222; color: #fff; }
+    button { margin-top: 15px; padding: 12px; background: #ff3c00; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    .room-info { margin-top: 30px; padding: 15px; background: #222; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Shadow eSports" />
+      <span>Shadow <b>eSports</b></span>
+    </div>
+  </header>
 
-  <button type="submit" class="cta-btn">Join Match</button>
-</form>
+  <h2>🔥 Match 2: Clash Squad</h2>
+  <p><b>Entry Fee:</b> 80৳ per squad</p>
+  <p><b>Booyah Prize:</b> 400৳</p>
+  <p><b>Total Squads:</b> 12</p>
+
+  <form onsubmit="joinMatch2(event)">
+    <label for="uid">Enter Squad Leader Free Fire/PUBG UID:</label>
+    <input type="text" id="uid" name="uid" placeholder="Squad Leader UID" required />
+
+    <label for="name">Enter Squad Leader Name:</label>
+    <input type="text" id="name" name="name" placeholder="Squad Leader Name" required />
+
+    <button type="submit">Join Now</button>
+  </form>
+
+  <div class="room-info" id="roomInfo">
+    <h3>Room Info:</h3>
+    <p id="roomId"><b>Room ID:</b> Not published yet</p>
+    <p id="roomPass"><b>Password:</b> Not published yet</p>
+  </div>
+
+  <script>
+    function joinMatch2(e) {
+      e.preventDefault();
+      const uid = document.getElementById('uid').value.trim();
+      const name = document.getElementById('name').value.trim();
+
+      if(!uid || !name) {
+        alert('Please fill all fields.');
+        return;
+      }
+
+      const player = { uid: uid, name: name, status: "pending" };
+      localStorage.setItem('match2_player', JSON.stringify(player));
+      alert("Successfully joined! Please wait for admin approval.");
+
+      showRoomInfo2();
+    }
+
+    function showRoomInfo2() {
+      const player = JSON.parse(localStorage.getItem('match2_player'));
+      if(player && player.status === "approved") {
+        document.getElementById('roomId').innerHTML = "<b>Room ID:</b> 654321";
+        document.getElementById('roomPass').innerHTML = "<b>Password:</b> squadpass";
+      } else {
+        document.getElementById('roomId').innerHTML = "<b>Room ID:</b> Not published yet";
+        document.getElementById('roomPass').innerHTML = "<b>Password:</b> Not published yet";
+      }
+    }
+
+    // Show room info on page load
+    showRoomInfo2();
+  </script>
+</body>
+</html>
