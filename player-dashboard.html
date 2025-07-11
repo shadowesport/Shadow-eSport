@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Player Dashboard - Shadow eSports</title>
+  <style>
+    body { background:#0f0f0f; color:#fff; font-family: Arial,sans-serif; padding:20px; }
+    h2 { color: #ff3c00; }
+  </style>
+</head>
+<body>
+  <h2>Your Balance</h2>
+  <p id="balance">Loading...</p>
+
+  <script>
+    function getBalance() {
+      return parseFloat(localStorage.getItem('player_balance') || '0');
+    }
+
+    function showBalance() {
+      const bal = getBalance();
+      document.getElementById('balance').innerText = bal + '৳';
+    }
+
+    showBalance();
+  </script>
+</body>
+</html>
