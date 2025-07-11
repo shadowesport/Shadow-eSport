@@ -27,12 +27,12 @@
     <p><b>Total Players:</b> 48</p>
     <br />
 
-    <form>
+    <form onsubmit="savePlayer(event)">
       <label for="uid">Enter Your Free Fire/PUBG UID:</label><br />
-      <input type="text" id="uid" name="uid" placeholder="Enter Free Fire/PUBG UID" required /><br /><br />
+      <input type="text" id="uid" name="uid" placeholder="Enter UID" required /><br /><br />
 
-      <label for="playerName">Enter Your Free Fire ID (or Player Name):</label><br />
-      <input type="text" id="playerName" name="playerName" placeholder="Free Fire ID or Player Name" required /><br /><br />
+      <label for="name">Enter Your Free Fire Name:</label><br />
+      <input type="text" id="name" name="name" placeholder="Enter Player Name" required /><br /><br />
 
       <button type="submit" class="cta-btn">Join Now</button>
     </form>
@@ -40,14 +40,36 @@
     <br /><br />
 
     <div class="room-info">
-      <h3>Room Info (Visible only after approval):</h3>
-      <p><b>Room ID:</b> Not published yet</p>
-      <p><b>Password:</b> Not published yet</p>
+      <h3>Room Info:</h3>
+      <div id="roomStatus">
+        <p><b>Room ID:</b> Not published yet</p>
+        <p><b>Password:</b> Not published yet</p>
+      </div>
     </div>
   </section>
 
   <footer>
     <p>© 2025 Shadow eSports</p>
   </footer>
+
+  <script>
+    function savePlayer(event) {
+      event.preventDefault();
+      const uid = document.getElementById('uid').value;
+      const name = document.getElementById('name').value;
+
+      const player = { uid: uid, name: name, status: 'pending' };
+      localStorage.setItem('match1_player', JSON.stringify(player));
+      alert("Successfully submitted! Please wait for admin approval.");
+    }
+
+    const playerData = JSON.parse(localStorage.getItem("match1_player"));
+    if (playerData && playerData.status === "approved") {
+      document.getElementById("roomStatus").innerHTML = `
+        <p><b>Room ID:</b> 123456</p>
+        <p><b>Password:</b> kabbo123</p>
+      `;
+    }
+  </script>
 </body>
 </html>
