@@ -2,30 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tournaments - Shadow eSports</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Shadow eSports Tournaments</h1>
+    <div class="logo">
+      <img src="logo.png" alt="Shadow eSports" />
+      <span>Shadow <b>eSports</b></span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="tournament.html" class="active">Tournaments</a>
+      <a href="buy-diamonds.html">Buy Diamonds</a>
+      <a href="add-money.html">Add Money</a>
+      <a href="login.html" class="login-btn">Login</a>
+    </nav>
   </header>
 
-  <section id="tournament-list">
-    <!-- Tournament items will be loaded here by JS -->
+  <section class="tournaments">
+    <h2>🎮 All Tournaments</h2>
+    <div class="cards">
+
+      <div class="card">
+        <h3>Battle Royale</h3>
+        <p>Entry Fee: 25৳</p>
+        <p>Per Kill: 10৳</p>
+        <p>Booyah: 70৳</p>
+        <a href="match1.html">Join Match</a>
+      </div>
+
+      <div class="card">
+        <h3>Clash Squad</h3>
+        <p>Entry Fee: 80৳ per squad</p>
+        <p>Prize: 400৳</p>
+        <a href="match2.html">Join Match</a>
+      </div>
+
+      <div class="card">
+        <h3>Lone Wolf</h3>
+        <p>Entry Fee: 60৳</p>
+        <p>Booyah Prize: 75৳</p>
+        <a href="match3.html">Join Match</a>
+      </div>
+
+    </div>
   </section>
 
-  <section id="join-tournament" style="display:none;">
-    <h2>Join Tournament</h2>
-    <form id="joinForm">
-      <label for="uidInput">Enter Your Game UID:</label><br />
-      <input type="text" id="uidInput" name="uid" required /><br />
-      <button type="submit">Join</button>
-      <button type="button" id="cancelJoin">Cancel</button>
-    </form>
-    <p id="joinMessage"></p>
-  </section>
-
-  <script src="script.js"></script>
+  <footer>
+    <p>© 2025 Shadow eSports</p>
+    <div class="social">
+      <a href="https://youtube.com/@shadowesports108">YouTube</a>
+      <a href="https://t.me/shadowgarden12389">Telegram</a>
+      <a href="https://www.facebook.com/share/1GhmfdDiaB/">Facebook</a>
+      <a href="https://www.tiktok.com/@ewr.kabbo317">TikTok</a>
+    </div>
+  </footer>
 </body>
 </html>
