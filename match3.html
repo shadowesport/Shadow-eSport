@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Match 3 - Lone Wolf</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; background: #0f0f0f; color: #fff; padding: 20px; }
+    header { display: flex; align-items: center; margin-bottom: 20px; }
+    .logo img { width: 50px; margin-right: 10px; }
+    .logo span { font-size: 24px; font-weight: bold; color: #ff3c00; }
+    label, input, button { display: block; width: 100%; }
+    input { padding: 10px; margin-top: 8px; border-radius: 5px; border: none; background: #222; color: #fff; }
+    button { margin-top: 15px; padding: 12px; background: #ff3c00; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    .room-info { margin-top: 30px; padding: 15px; background: #222; border-radius: 8px; }
+  </style>
 </head>
 <body>
   <header>
@@ -12,41 +21,60 @@
       <img src="logo.png" alt="Shadow eSports" />
       <span>Shadow <b>eSports</b></span>
     </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="tournament.html">Tournaments</a>
-      <a href="login.html" class="login-btn">Login</a>
-    </nav>
   </header>
 
-  <section class="match-details">
-    <h2>🔥 Match 3: Lone Wolf (1v1)</h2>
-    <p><b>Entry Fee:</b> 60৳</p>
-    <p><b>Booyah Prize:</b> 75৳</p>
-    <p><b>Total Players:</b> 4</p>
-    <br />
+  <h2>🔥 Match 3: Lone Wolf</h2>
+  <p><b>Entry Fee:</b> 60৳</p>
+  <p><b>Booyah Prize:</b> 75৳</p>
+  <p><b>Total Players:</b> 4</p>
 
-    <form>
-      <label for="uid">Enter Your Free Fire/PUBG UID:</label><br />
-      <input type="text" id="uid" name="uid" placeholder="Enter UID" required><br /><br />
+  <form onsubmit="joinMatch3(event)">
+    <label for="uid">Enter Your Free Fire/PUBG UID:</label>
+    <input type="text" id="uid" name="uid" placeholder="UID" required />
 
-      <label for="trxid">Payment Transaction ID:</label><br />
-      <input type="text" id="trxid" name="trxid" placeholder="bKash/Nagad Txn ID" required><br /><br />
+    <label for="name">Enter Your Free Fire Name:</label>
+    <input type="text" id="name" name="name" placeholder="Player Name" required />
 
-      <button type="submit" class="cta-btn">Join Match</button>
-    </form>
+    <button type="submit">Join Now</button>
+  </form>
 
-    <br /><br />
+  <div class="room-info" id="roomInfo">
+    <h3>Room Info:</h3>
+    <p id="roomId"><b>Room ID:</b> Not published yet</p>
+    <p id="roomPass"><b>Password:</b> Not published yet</p>
+  </div>
 
-    <div class="room-info">
-      <h3>Room Info (Visible after approval):</h3>
-      <p><b>Room ID:</b> Not published yet</p>
-      <p><b>Password:</b> Not published yet</p>
-    </div>
-  </section>
+  <script>
+    function joinMatch3(e) {
+      e.preventDefault();
+      const uid = document.getElementById('uid').value.trim();
+      const name = document.getElementById('name').value.trim();
 
-  <footer>
-    <p>© 2025 Shadow eSports</p>
-  </footer>
+      if(!uid || !name) {
+        alert('Please fill all fields.');
+        return;
+      }
+
+      const player = { uid: uid, name: name, status: "pending" };
+      localStorage.setItem('match3_player', JSON.stringify(player));
+      alert("Successfully joined! Please wait for admin approval.");
+
+      showRoomInfo3();
+    }
+
+    function showRoomInfo3() {
+      const player = JSON.parse(localStorage.getItem('match3_player'));
+      if(player && player.status === "approved") {
+        document.getElementById('roomId').innerHTML = "<b>Room ID:</b> 789123";
+        document.getElementById('roomPass').innerHTML = "<b>Password:</b> lonewolf123";
+      } else {
+        document.getElementById('roomId').innerHTML = "<b>Room ID:</b> Not published yet";
+        document.getElementById('roomPass').innerHTML = "<b>Password:</b> Not published yet";
+      }
+    }
+
+    // Show room info on page load
+    showRoomInfo3();
+  </script>
 </body>
 </html>
