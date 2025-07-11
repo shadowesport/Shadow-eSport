@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Payments - Shadow eSports</title>
+  <style>
+    body { background:#0f0f0f; color:#fff; font-family: Arial,sans-serif; padding:20px; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { border: 1px solid #444; padding: 8px; }
+    th { background:#222; }
+    button { padding: 6px 12px; margin: 2px; border:none; border-radius:4px; cursor:pointer; }
+    .approve { background:green; color:#fff; }
+    .reject { background:red; color:#fff; }
+  </style>
+</head>
+<body>
+  <h2>Admin - Payment Requests</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Amount (৳)</th>
+        <th>Transaction ID</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="paymentTableBody">
+    </tbody>
+  </table>
+
+  <h3>Player Balance:</h3>
+  <p id="balanceDisplay">0৳</p>
+
+  <script>
+    const paymentTableBody = document.getElementById('paymentTableBody');
+    const balanceDisplay = document.getElementById('balanceDisplay');
+
+    function loadPayments() {
+      const payments = JSON.parse(localStorage.getItem('payments') || '[]');
+      paymentTableBody.innerHTML = '';
+      payments.forEach((p, i) => {
+        paymentTableBody.innerHTML += `
+          <tr>
+            <td>${p.amount}</td>
+            <td>${p.txn}</td>
+            <td>${p.status}</td>
+            <td>
+              ${p.status === 'pending' ? 
+                `<button class="approve" onclick="approvePayment(${i})">Approve</button>
+                 <button class="reject" onclick="rejectPayment(${i})">Reject</button>`
+                : ''}
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function getBalance() {
+      return parseFloat(localStorage.getItem('player_balance') || '0');
+    }
+
+    function setBalance(amount) {
+      localStorage.setItem('player_balance', amount);
+      balanceDisplay.innerText = amount + '৳';
+    }
+
+    function approvePayment(index) {
+      let payments = JSON.parse(localStorage.getItem('payments') || '[]');
+      if(payments[index].status === 'pending') {
+        payments[index].status = 'approved';
+
+        // Add amount to balance
+        let currentBalance = getBalance();
+        currentBalance += payments[index].amount;
+        setBalance(currentBalance);
+
+        localStorage.setItem('payments', JSON.stringify(payments));
+        loadPayments();
+        alert('Payment approved and balance updated.');
+      }
+    }
+
+    function rejectPayment(index) {
+      let payments = JSON.parse(localStorage.getItem('payments') || '[]');
+      if(payments[index].status === 'pending') {
+        payments[index].status = 'rejected';
+        localStorage.setItem('payments', JSON.stringify(payments));
+        loadPayments();
+        alert('Payment rejected.');
+      }
+    }
+
+    // Initial load
+    loadPayments();
+    balanceDisplay.innerText = getBalance() + '৳';
+  </script>
+</body>
+</html>
