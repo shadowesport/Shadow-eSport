@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Match 2 - Clash Squad</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Match 2 - Clash Squad</h1>
-  <p>Match details coming soon...</p>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Shadow eSports" />
+      <span>Shadow <b>eSports</b></span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="tournament.html">Tournaments</a>
+      <a href="login.html" class="login-btn">Login</a>
+    </nav>
+  </header>
+
+  <section class="match-details">
+    <h2>🔥 Match 2: Clash Squad (4v4)</h2>
+    <p><b>Entry Fee:</b> 80৳ <u>per player</u></p>
+    <p><b>Total for Squad:</b> 320৳ (4 players)</p>
+    <p><b>Booyah Prize:</b> 400৳ (for full squad)</p>
+    <p><b>Total Teams:</b> 12 squads</p>
+    <br />
+
+    <form>
+      <label for="uid">Enter Your UID (Squad Leader or Player):</label><br />
+      <input type="text" id="uid" name="uid" placeholder="Enter UID" required><br /><br />
+
+      <label for="trxid">Payment Transaction ID:</label><br />
+      <input type="text" id="trxid" name="trxid" placeholder="bKash/Nagad Txn ID" required><br /><br />
+
+      <button type="submit" class="cta-btn">Join Now</button>
+    </form>
+
+    <br /><br />
+
+    <div class="room-info">
+      <h3>Room Info (Visible after approval):</h3>
+      <p><b>Room ID:</b> Not published yet</p>
+      <p><b>Password:</b> Not published yet</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Shadow eSports</p>
+  </footer>
 </body>
-</html><!-- Dummy content for tournaments/match2.html -->
+</html>
