@@ -2,106 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Add Money – Shadow eSports</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Money - Shadow eSports</title>
   <style>
-    body {
-      background-image: url('logo.png'); /* Replace with your background image */
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      backdrop-filter: blur(6px);
-    }
+    body { background:#0f0f0f; color:#fff; font-family: Arial,sans-serif; padding:20px; }
+    label,input,button { display:block; width:100%; margin-top:10px; }
+    input,button { padding:10px; border:none; border-radius:5px; }
+    input { background:#222; color:#fff; }
+    button { background:#ff3c00; color:#fff; font-weight:bold; cursor:pointer; }
   </style>
 </head>
-<body class="min-h-screen flex items-center justify-center">
-  <div class="bg-black bg-opacity-70 p-8 rounded-2xl shadow-xl w-full max-w-md text-white">
-    <h2 class="text-3xl font-bold text-center mb-6">Add Money</h2>
+<body>
+  <h2>Add Money</h2>
+  <form id="addMoneyForm">
+    <label for="amount">Amount (৳):</label>
+    <input type="number" id="amount" min="10" placeholder="Enter amount (min 10৳)" required />
 
-    <form id="addMoneyForm" class="space-y-4">
-      <!-- Amount Input -->
-      <div>
-        <label class="block mb-1">Amount (৳)</label>
-        <input type="number" id="amount" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required />
-      </div>
+    <label for="txn">Transaction ID (bKash/Nagad):</label>
+    <input type="text" id="txn" placeholder="Enter Txn ID" required />
 
-      <!-- Payment Method -->
-      <div>
-        <label class="block mb-1">Payment Method</label>
-        <select id="method" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required>
-          <option value="">Choose</option>
-          <option value="bkash">bKash</option>
-          <option value="nagad">Nagad</option>
-        </select>
-      </div>
+    <button type="submit">Submit Payment</button>
+  </form>
 
-      <!-- Payment Number -->
-      <div>
-        <label class="block mb-1">Your Payment Number</label>
-        <input type="text" id="payNumber" placeholder="Ex: 017XXXXXXXX" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required />
-      </div>
+  <h3>Payment Requests (Waiting for Admin Approval):</h3>
+  <ul id="paymentList" style="list-style:none; padding:0;"></ul>
 
-      <!-- Transaction ID -->
-      <div>
-        <label class="block mb-1">Transaction ID</label>
-        <input type="text" id="txnid" placeholder="Ex: TXN123456" class="w-full p-3 rounded-xl bg-gray-900 border border-gray-700" required />
-      </div>
-
-      <!-- Submit -->
-      <div class="text-center">
-        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-6 py-3 rounded-xl">
-          Submit
-        </button>
-      </div>
-    </form>
-
-    <!-- Result Message -->
-    <div id="result" class="text-center mt-6 text-lg font-bold"></div>
-
-    <!-- Payment Info -->
-    <div class="text-white text-sm text-center mt-4 leading-relaxed">
-      <p><strong>bKash Number:</strong> 01714494667</p>
-      <p><strong>Nagad Numbers:</strong> 01714494667, 01791970825</p>
-    </div>
-
-    <!-- WhatsApp Info -->
-    <p class="text-sm text-center mt-4">
-      After payment, contact admin:<br />
-      <a href="https://wa.me/01322343834" target="_blank" class="text-yellow-400 underline">WhatsApp: 01322343834</a>
-    </p>
-  </div>
-
-  <!-- Manual Bot JavaScript -->
   <script>
-    // Approved Manual Transactions (admin updates this)
-    const approvedTxns = [
-      { id: "TXN123", number: "01710000000", amount: 100 },
-      { id: "TXN456", number: "01720000000", amount: 50 },
-      { id: "TXN789", number: "01730000000", amount: 30 }
-    ];
+    const form = document.getElementById('addMoneyForm');
+    const paymentList = document.getElementById('paymentList');
 
-    document.getElementById("addMoneyForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const amount = parseInt(document.getElementById("amount").value);
-      const txnid = document.getElementById("txnid").value.trim();
-      const number = document.getElementById("payNumber").value.trim();
-
-      const match = approvedTxns.find(
-        (txn) => txn.id === txnid && txn.number === number && txn.amount === amount
-      );
-
-      const resultBox = document.getElementById("result");
-      if (match) {
-        resultBox.innerHTML = `✅ Payment Successful!<br>💰 ${amount} Coins added to your account.`;
-        resultBox.classList.remove("text-red-500");
-        resultBox.classList.add("text-green-400");
+    // Load payments from localStorage and show
+    function loadPayments() {
+      const payments = JSON.parse(localStorage.getItem('payments') || '[]');
+      paymentList.innerHTML = '';
+      if (payments.length === 0) {
+        paymentList.innerHTML = '<li>No pending payments</li>';
       } else {
-        resultBox.innerHTML = "❌ Invalid Transaction! Please contact admin.";
-        resultBox.classList.remove("text-green-400");
-        resultBox.classList.add("text-red-500");
+        payments.forEach((p, i) => {
+          paymentList.innerHTML += `<li><b>Amount:</b> ${p.amount}৳, <b>Txn ID:</b> ${p.txn}, <b>Status:</b> ${p.status}</li>`;
+        });
       }
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const amount = parseFloat(document.getElementById('amount').value);
+      const txn = document.getElementById('txn').value.trim();
+
+      if(amount < 10) {
+        alert('Minimum amount is 10৳');
+        return;
+      }
+      if(!txn) {
+        alert('Transaction ID required');
+        return;
+      }
+
+      let payments = JSON.parse(localStorage.getItem('payments') || '[]');
+      payments.push({ amount, txn, status: 'pending' });
+      localStorage.setItem('payments', JSON.stringify(payments));
+      alert('Payment submitted. Waiting for admin approval.');
+
+      form.reset();
+      loadPayments();
     });
+
+    loadPayments();
   </script>
 </body>
 </html>
