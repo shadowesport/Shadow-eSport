@@ -6,7 +6,7 @@
   <title>Admin Panel - Match 1</title>
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       background: #0f0f0f;
       color: #fff;
       padding: 20px;
@@ -33,6 +33,7 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      margin-right: 5px;
     }
     .approve {
       background: green;
@@ -62,41 +63,43 @@
   </table>
 
   <script>
-    // Load player data from localStorage
-    const player = JSON.parse(localStorage.getItem("match1_player"));
     const table = document.getElementById("playerTable");
 
-    if (player) {
-      table.innerHTML = `
-        <tr>
-          <td>${player.uid}</td>
-          <td>${player.name}</td>
-          <td id="statusCell">${player.status}</td>
-          <td>
-            <button class="approve" onclick="approve()">Approve</button>
-            <button class="remove" onclick="remove()">Remove</button>
-          </td>
-        </tr>
-      `;
-    } else {
-      table.innerHTML = `
-        <tr>
-          <td colspan="4">No players have joined yet.</td>
-        </tr>
-      `;
+    function loadPlayer() {
+      const player = JSON.parse(localStorage.getItem("match1_player"));
+      if(player) {
+        table.innerHTML = `
+          <tr>
+            <td>${player.uid}</td>
+            <td>${player.name}</td>
+            <td id="statusCell">${player.status}</td>
+            <td>
+              <button class="approve" onclick="approvePlayer()">Approve</button>
+              <button class="remove" onclick="removePlayer()">Remove</button>
+            </td>
+          </tr>
+        `;
+      } else {
+        table.innerHTML = `<tr><td colspan="4">No players have joined yet.</td></tr>`;
+      }
     }
 
-    function approve() {
-      player.status = "approved";
-      localStorage.setItem("match1_player", JSON.stringify(player));
-      document.getElementById("statusCell").innerText = "approved";
-      alert("Player Approved! Room info will now be shown on their side.");
+    function approvePlayer() {
+      const player = JSON.parse(localStorage.getItem("match1_player"));
+      if(player) {
+        player.status = "approved";
+        localStorage.setItem("match1_player", JSON.stringify(player));
+        document.getElementById("statusCell").innerText = "approved";
+        alert("Player approved! Room info unlocked.");
+      }
     }
 
-    function remove() {
+    function removePlayer() {
       localStorage.removeItem("match1_player");
-      location.reload();
+      loadPlayer();
     }
+
+    loadPlayer();
   </script>
 </body>
 </html>
