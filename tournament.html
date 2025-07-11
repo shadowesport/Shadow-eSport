@@ -1,132 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Shadow eSports - Tournaments</title>
-  <style>
-    body {
-      background-color: #121212;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #ff1744;
-      margin-bottom: 30px;
-    }
-    .match-box {
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-left: 5px solid #f44336;
-      margin: 15px auto;
-      border-radius: 10px;
-      max-width: 500px;
-    }
-    .match-box h2 {
-      margin: 0;
-      color: #00b0ff;
-    }
-    .join-btn {
-      margin-top: 10px;
-      display: inline-block;
-      background-color: #4caf50;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .join-btn:hover {
-      background-color: #45a049;
-    }
-    .comment-section {
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 600px;
-      margin: 40px auto;
-      border-left: 5px solid #4caf50;
-    }
-    .comment-section h3 {
-      color: #4caf50;
-      margin-top: 0;
-    }
-    .comment-box {
-      background: #2a2a2a;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-    .comment-author {
-      color: #aaa;
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-    .comment-text {
-      font-size: 16px;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tournaments - Shadow eSports</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header>
+    <h1>Shadow eSports Tournaments</h1>
+  </header>
 
-  <h1>🔥 Shadow eSports Match List 🔥</h1>
+  <section id="tournament-list">
+    <!-- Tournament items will be loaded here by JS -->
+  </section>
 
-  <!-- Match Boxes with Join Buttons -->
-  <div class="match-box">
-    <h2><a href="match1.html">Match 1 - Battle Royale</a></h2>
-    <a class="join-btn" href="https://wa.me/8801322343834?text=Player%20Game%20ID%20name%3A%0AUID%3A%0AMoney%20Sent%20Number%3A%0ATransaction%20code%2FScreenshot%3A" target="_blank">Join Now</a>
-  </div>
+  <section id="join-tournament" style="display:none;">
+    <h2>Join Tournament</h2>
+    <form id="joinForm">
+      <label for="uidInput">Enter Your Game UID:</label><br />
+      <input type="text" id="uidInput" name="uid" required /><br />
+      <button type="submit">Join</button>
+      <button type="button" id="cancelJoin">Cancel</button>
+    </form>
+    <p id="joinMessage"></p>
+  </section>
 
-  <div class="match-box">
-    <h2><a href="match2.html">Match 2 - Lone Wolf</a></h2>
-    <a class="join-btn" href="https://wa.me/8801322343834?text=Player%20Game%20ID%20name%3A%0AUID%3A%0AMoney%20Sent%20Number%3A%0ATransaction%20code%2FScreenshot%3A" target="_blank">Join Now</a>
-  </div>
-
-  <div class="match-box">
-    <h2><a href="match3.html">Match 3 - Clash Squad</a></h2>
-    <a class="join-btn" href="https://wa.me/8801322343834?text=Player%20Game%20ID%20name%3A%0AUID%3A%0AMoney%20Sent%20Number%3A%0ATransaction%20code%2FScreenshot%3A" target="_blank">Join Now</a>
-  </div>
-
-  <div class="match-box">
-    <h2><a href="match4.html">Match 4</a></h2>
-    <a class="join-btn" href="https://wa.me/8801322343834?text=Player%20Game%20ID%20name%3A%0AUID%3A%0AMoney%20Sent%20Number%3A%0ATransaction%20code%2FScreenshot%3A" target="_blank">Join Now</a>
-  </div>
-
-  <div class="match-box">
-    <h2><a href="match5.html">Match 5</a></h2>
-    <a class="join-btn" href="https://wa.me/8801322343834?text=Player%20Game%20ID%20name%3A%0AUID%3A%0AMoney%20Sent%20Number%3A%0ATransaction%20code%2FScreenshot%3A" target="_blank">Join Now</a>
-  </div>
-
-  <div class="match-box">
-    <h2><a href="match6.html">Match 6</a></h2>
-    <a class="join-btn" href="https://wa.me/8801322343834?text=Player%20Game%20ID%20name%3A%0AUID%3A%0AMoney%20Sent%20Number%3A%0ATransaction%20code%2FScreenshot%3A" target="_blank">Join Now</a>
-  </div>
-
-  <div class="match-box">
-    <h2><a href="match7.html">Match 7</a></h2>
-    <a class="join-btn" href="https://wa.me/8801322343834?text=Player%20Game%20ID%20name%3A%0AUID%3A%0AMoney%20Sent%20Number%3A%0ATransaction%20code%2FScreenshot%3A" target="_blank">Join Now</a>
-  </div>
-
-  <div class="match-box">
-    <h2><a href="match8.html">Match 8</a></h2>
-    <a class="join-btn" href="https://wa.me/8801322343834?text=Player%20Game%20ID%20name%3A%0AUID%3A%0AMoney%20Sent%20Number%3A%0ATransaction%20code%2FScreenshot%3A" target="_blank">Join Now</a>
-  </div>
-
-  <!-- Admin Comments -->
-  <div class="comment-section">
-    <h3>📢 Admin Announcements</h3>
-
-    <div class="comment-box">
-      <div class="comment-author">Admin • 23 June 2025</div>
-      <div class="comment-text">Match 1 room code will be shared 10 minutes before start.</div>
-    </div>
-
-    <div class="comment-box">
-      <div class="comment-author">Admin • 23 June 2025</div>
-      <div class="comment-text">All players must join with correct UID, or they will be disqualified.</div>
-    </div>
-  </div>
-
+  <script src="script.js"></script>
 </body>
 </html>
