@@ -2,72 +2,100 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Login - Shadow eSports</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel - Match 1</title>
   <style>
     body {
-      background: #0f0f0f;
       font-family: Arial;
+      background: #0f0f0f;
       color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding: 20px;
     }
-    .login-box {
-      background: #1c1c1c;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ff3c00;
+    h1 {
+      text-align: center;
+      color: #ff3c00;
     }
-    input {
-      display: block;
+    table {
       width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #444;
       padding: 10px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 5px;
-      background: #333;
-      color: #fff;
+      text-align: left;
+    }
+    th {
+      background: #222;
     }
     button {
-      background: #ff3c00;
-      color: white;
-      padding: 10px;
-      margin-top: 20px;
+      padding: 6px 12px;
       border: none;
-      border-radius: 5px;
-      width: 100%;
+      border-radius: 4px;
       cursor: pointer;
     }
-    h2 {
-      color: #ff3c00;
-      text-align: center;
+    .approve {
+      background: green;
+      color: white;
+    }
+    .remove {
+      background: crimson;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <div class="login-box">
-    <h2>Admin Login</h2>
-    <form onsubmit="login(event)">
-      <input type="email" id="email" placeholder="Admin Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-  </div>
+  <h1>Admin Panel - Match 1</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Free Fire UID</th>
+        <th>Player Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="playerTable">
+      <!-- Player data will load here -->
+    </tbody>
+  </table>
 
   <script>
-    function login(event) {
-      event.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+    // Load player data from localStorage
+    const player = JSON.parse(localStorage.getItem("match1_player"));
+    const table = document.getElementById("playerTable");
 
-      if (email === "shadowesports108@gmail.com" && password === "*K@bbo67@#") {
-        alert("Login successful!");
-        window.location.href = "admin.html"; // Redirect to admin panel
-      } else {
-        alert("Invalid email or password!");
-      }
+    if (player) {
+      table.innerHTML = `
+        <tr>
+          <td>${player.uid}</td>
+          <td>${player.name}</td>
+          <td id="statusCell">${player.status}</td>
+          <td>
+            <button class="approve" onclick="approve()">Approve</button>
+            <button class="remove" onclick="remove()">Remove</button>
+          </td>
+        </tr>
+      `;
+    } else {
+      table.innerHTML = `
+        <tr>
+          <td colspan="4">No players have joined yet.</td>
+        </tr>
+      `;
+    }
+
+    function approve() {
+      player.status = "approved";
+      localStorage.setItem("match1_player", JSON.stringify(player));
+      document.getElementById("statusCell").innerText = "approved";
+      alert("Player Approved! Room info will now be shown on their side.");
+    }
+
+    function remove() {
+      localStorage.removeItem("match1_player");
+      location.reload();
     }
   </script>
 </body>
