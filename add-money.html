@@ -1,73 +1,43 @@
+<!-- ✅ FILE: add-money.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Add Money - Shadow eSports</title>
-  <style>
-    body { background:#0f0f0f; color:#fff; font-family: Arial,sans-serif; padding:20px; }
-    label,input,button { display:block; width:100%; margin-top:10px; }
-    input,button { padding:10px; border:none; border-radius:5px; }
-    input { background:#222; color:#fff; }
-    button { background:#ff3c00; color:#fff; font-weight:bold; cursor:pointer; }
-  </style>
+  <meta charset="UTF-8">
+  <title>Add Money</title>
 </head>
-<body>
+<body style="background:#111;color:white;font-family:sans-serif;padding:20px;">
   <h2>Add Money</h2>
-  <form id="addMoneyForm">
-    <label for="amount">Amount (৳):</label>
-    <input type="number" id="amount" min="10" placeholder="Enter amount (min 10৳)" required />
+  <form id="addForm">
+    <label>Amount (৳):</label>
+    <input type="number" id="amount" required><br><br>
 
-    <label for="txn">Transaction ID (bKash/Nagad):</label>
-    <input type="text" id="txn" placeholder="Enter Txn ID" required />
+    <label>Transaction ID:</label>
+    <input type="text" id="txn" required><br><br>
 
-    <button type="submit">Submit Payment</button>
+    <button type="submit">Submit</button>
   </form>
 
-  <h3>Payment Requests (Waiting for Admin Approval):</h3>
-  <ul id="paymentList" style="list-style:none; padding:0;"></ul>
-
   <script>
-    const form = document.getElementById('addMoneyForm');
-    const paymentList = document.getElementById('paymentList');
-
-    // Load payments from localStorage and show
-    function loadPayments() {
-      const payments = JSON.parse(localStorage.getItem('payments') || '[]');
-      paymentList.innerHTML = '';
-      if (payments.length === 0) {
-        paymentList.innerHTML = '<li>No pending payments</li>';
-      } else {
-        payments.forEach((p, i) => {
-          paymentList.innerHTML += `<li><b>Amount:</b> ${p.amount}৳, <b>Txn ID:</b> ${p.txn}, <b>Status:</b> ${p.status}</li>`;
-        });
-      }
-    }
-
-    form.addEventListener('submit', e => {
+    const form = document.getElementById("addForm");
+    form.addEventListener("submit", function(e) {
       e.preventDefault();
-      const amount = parseFloat(document.getElementById('amount').value);
-      const txn = document.getElementById('txn').value.trim();
+      const amount = parseFloat(document.getElementById("amount").value);
+      const txn = document.getElementById("txn").value.trim();
 
-      if(amount < 10) {
-        alert('Minimum amount is 10৳');
-        return;
-      }
-      if(!txn) {
-        alert('Transaction ID required');
-        return;
-      }
+      const newPayment = {
+        amount: amount,
+        txn: txn,
+        status: "pending"
+      };
 
-      let payments = JSON.parse(localStorage.getItem('payments') || '[]');
-      payments.push({ amount, txn, status: 'pending' });
-      localStorage.setItem('payments', JSON.stringify(payments));
-      alert('Payment submitted. Waiting for admin approval.');
+      // Save to localStorage
+      const existing = JSON.parse(localStorage.getItem("payments") || "[]");
+      existing.push(newPayment);
+      localStorage.setItem("payments", JSON.stringify(existing));
 
+      alert("Payment submitted. Waiting for admin approval.");
       form.reset();
-      loadPayments();
     });
-
-    loadPayments();
   </script>
 </body>
 </html>
