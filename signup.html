@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signup - Shadow eSports</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2>Signup</h2>
-  <input id="email" type="email" placeholder="Email"><br>
-  <input id="password" type="password" placeholder="Password"><br>
-  <button onclick="signUp()">Signup</button>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Shadow eSports" />
+      <span>Shadow <b>eSports</b></span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html" class="active">Signup</a>
+    </nav>
+  </header>
 
-  <script type="module" src="firebase.js"></script>
-  <script type="module">
-    import { firebaseData } from './firebase.js';
-    const { auth, createUserWithEmailAndPassword, db, doc, setDoc } = firebaseData;
+  <section class="signup-form">
+    <h2>📝 Create a New Account</h2>
+    <form onsubmit="signupRedirect(event)">
+      <input type="text" id="fullname" placeholder="Full Name" required><br /><br />
+      <input type="text" id="username" placeholder="Username" required><br /><br />
+      <input type="email" id="email" placeholder="Email Address" required><br /><br />
+      <input type="password" id="password" placeholder="Password" required><br /><br />
+      <input type="password" id="confirm" placeholder="Confirm Password" required><br /><br />
+      <button type="submit" class="cta-btn">Create Account</button>
+    </form>
+  </section>
 
-    window.signUp = async () => {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        await setDoc(doc(db, "users", userCredential.user.uid), {
-          email: email,
-          balance: 0
-        });
-        alert("Signup successful!");
-        window.location.href = "wallet.html";
-      } catch (error) {
-        alert(error.message);
-      }
+  <footer>
+    <p>© 2025 Shadow eSports</p>
+  </footer>
+
+  <script>
+    function signupRedirect(event) {
+      event.preventDefault();
+      // Real backend hobe future e. Now redirect
+      window.location.href = "player-panel.html";
     }
   </script>
 </body>
