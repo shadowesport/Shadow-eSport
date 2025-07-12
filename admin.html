@@ -11,7 +11,7 @@
       color: #fff;
       padding: 20px;
     }
-    h1 {
+    h1, h2 {
       text-align: center;
       color: #ff3c00;
     }
@@ -43,31 +43,98 @@
       background: crimson;
       color: white;
     }
+    .room-info {
+      margin-top: 30px;
+      padding: 20px;
+      background: #1c1c1c;
+      border-radius: 10px;
+      display: none;
+    }
+    .login-form {
+      max-width: 400px;
+      margin: 60px auto;
+      padding: 20px;
+      background: #1c1c1c;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .login-form input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    .login-form button {
+      background: #ff3c00;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
-  <h1>Admin Panel - Match 1</h1>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Free Fire UID</th>
-        <th>Player Name</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody id="playerTable">
-      <!-- Player data will load here -->
-    </tbody>
-  </table>
+  <!-- 🔐 Login Form -->
+  <div id="loginSection" class="login-form">
+    <h2>Admin Login</h2>
+    <input type="email" id="email" placeholder="Admin Email" required><br>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <button onclick="adminLogin()">Login</button>
+    <p id="loginError" style="color:red; display:none;">❌ Incorrect email or password</p>
+  </div>
+
+  <!-- ✅ Admin Panel -->
+  <div id="adminPanel" style="display:none;">
+    <h1>Admin Panel - Match 1</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Free Fire UID</th>
+          <th>Player Name</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="playerTable">
+        <!-- Player data will load here -->
+      </tbody>
+    </table>
+
+    <div class="room-info" id="roomInfo">
+      <h2>🔐 Room Info</h2>
+      <p><b>Room ID:</b> 123-456-789</p>
+      <p><b>Password:</b> shadow2025</p>
+    </div>
+  </div>
 
   <script>
     const table = document.getElementById("playerTable");
+    const roomBox = document.getElementById("roomInfo");
+    const loginSection = document.getElementById("loginSection");
+    const adminPanel = document.getElementById("adminPanel");
+
+    const adminEmail = "shadowesports108@gmail.com";
+    const adminPassword = "*K@bbo67@#";
+
+    function adminLogin() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (email === adminEmail && password === adminPassword) {
+        loginSection.style.display = "none";
+        adminPanel.style.display = "block";
+        loadPlayer();
+      } else {
+        document.getElementById("loginError").style.display = "block";
+      }
+    }
 
     function loadPlayer() {
       const player = JSON.parse(localStorage.getItem("match1_player"));
-      if(player) {
+      if (player) {
         table.innerHTML = `
           <tr>
             <td>${player.uid}</td>
@@ -79,18 +146,25 @@
             </td>
           </tr>
         `;
+        if (player.status === "approved") {
+          roomBox.style.display = "block";
+        } else {
+          roomBox.style.display = "none";
+        }
       } else {
         table.innerHTML = `<tr><td colspan="4">No players have joined yet.</td></tr>`;
+        roomBox.style.display = "none";
       }
     }
 
     function approvePlayer() {
       const player = JSON.parse(localStorage.getItem("match1_player"));
-      if(player) {
+      if (player) {
         player.status = "approved";
         localStorage.setItem("match1_player", JSON.stringify(player));
         document.getElementById("statusCell").innerText = "approved";
         alert("Player approved! Room info unlocked.");
+        roomBox.style.display = "block";
       }
     }
 
@@ -98,8 +172,6 @@
       localStorage.removeItem("match1_player");
       loadPlayer();
     }
-
-    loadPlayer();
   </script>
 </body>
 </html>
