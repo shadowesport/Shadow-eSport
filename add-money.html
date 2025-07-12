@@ -10,11 +10,22 @@
     input,button { padding:10px; border:none; border-radius:5px; }
     input { background:#222; color:#fff; }
     button { background:#ff3c00; color:#fff; font-weight:bold; cursor:pointer; }
+    .admin-info { background:#1a1a1a; padding:10px; margin-bottom:15px; border-radius:5px; }
   </style>
 </head>
 <body>
   <h2>Add Money</h2>
+
+  <div class="admin-info">
+    <p><b>Send Money To:</b></p>
+    <p>bKash/Nagad: <span style="color:#00ffcc;">01714494667</span> (Admin)</p>
+    <p>or Alt: <span style="color:#00ffcc;">01791970825</span></p>
+  </div>
+
   <form id="addMoneyForm">
+    <label for="playerPhone">Your Mobile Number:</label>
+    <input type="text" id="playerPhone" placeholder="Your mobile (e.g. 01XXXXXXXXX)" required />
+
     <label for="amount">Amount (৳):</label>
     <input type="number" id="amount" min="10" placeholder="Enter amount (min 10৳)" required />
 
@@ -31,7 +42,6 @@
     const form = document.getElementById('addMoneyForm');
     const paymentList = document.getElementById('paymentList');
 
-    // Load payments from localStorage and show
     function loadPayments() {
       const payments = JSON.parse(localStorage.getItem('payments') || '[]');
       paymentList.innerHTML = '';
@@ -39,7 +49,12 @@
         paymentList.innerHTML = '<li>No pending payments</li>';
       } else {
         payments.forEach((p, i) => {
-          paymentList.innerHTML += `<li><b>Amount:</b> ${p.amount}৳, <b>Txn ID:</b> ${p.txn}, <b>Status:</b> ${p.status}</li>`;
+          paymentList.innerHTML += `<li>
+            <b>Amount:</b> ${p.amount}৳, 
+            <b>Txn:</b> ${p.txn}, 
+            <b>From:</b> ${p.phone}, 
+            <b>Status:</b> ${p.status}
+          </li>`;
         });
       }
     }
@@ -48,21 +63,16 @@
       e.preventDefault();
       const amount = parseFloat(document.getElementById('amount').value);
       const txn = document.getElementById('txn').value.trim();
+      const phone = document.getElementById('playerPhone').value.trim();
 
-      if(amount < 10) {
-        alert('Minimum amount is 10৳');
-        return;
-      }
-      if(!txn) {
-        alert('Transaction ID required');
-        return;
-      }
+      if (amount < 10) return alert('Minimum amount is 10৳');
+      if (!txn || !phone) return alert('All fields are required');
 
-      let payments = JSON.parse(localStorage.getItem('payments') || '[]');
-      payments.push({ amount, txn, status: 'pending' });
+      const payments = JSON.parse(localStorage.getItem('payments') || '[]');
+      payments.push({ amount, txn, phone, status: 'pending' });
       localStorage.setItem('payments', JSON.stringify(payments));
-      alert('Payment submitted. Waiting for admin approval.');
 
+      alert('Payment submitted. Waiting for admin approval.');
       form.reset();
       loadPayments();
     });
