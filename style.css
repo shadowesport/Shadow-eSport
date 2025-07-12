@@ -190,3 +190,28 @@ footer .social a {
   padding: 10px;
   border-radius: 6px;
 }
+.player-panel {
+  padding: 40px 20px;
+  text-align: center;
+}
+.player-info {
+  background: #1a1a1a;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  border-radius: 10px;
+}
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+  margin: auto;
+}
+.quick-links .cta-btn {
+  text-decoration: none;
+  color: white;
+  background: #ff004f;
+  padding: 10px;
+  border-radius: 6px;
+}
