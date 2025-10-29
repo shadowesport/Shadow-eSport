@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tournament Registration - THE BLOODLOVERS</title>
+  <style>
+    body {
+      background-color: #0b0b0b;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #111;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+    h2, h3 {
+      text-align: center;
+      color: #ff3333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #ddd;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background: #222;
+      color: #fff;
+    }
+    button {
+      background: #ff3333;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff0000;
+    }
+    .note {
+      font-size: 13px;
+      color: #bbb;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 14px;
+      color: #777;
+    }
+    a {
+      color: #ff3333;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>🧾 Tournament Registration Form</h2>
+    <h3>THE BLOODLOVERS<br>PLAYER HUNT CHAMPIONSHIP</h3>
+    <p style="text-align:center;">Produced by: BLOODLOVERS Organization</p>
+    <hr>
+
+    <form id="tournamentForm">
+      <label>Email:</label>
+      <input type="email" id="email" placeholder="ইমেইল লিখুন" required>
+
+      <label>Team Name (টিম এর নাম):</label>
+      <input type="text" id="teamName" required>
+
+      <label>Team Leader Name (টিম লিডার এর নাম):</label>
+      <input type="text" id="leaderName" required>
+
+      <label>Team Leader’s WhatsApp (হোয়াটসঅ্যাপ নাম্বার):</label>
+      <input type="text" id="leaderWhatsApp" required>
+
+      <label>Team Leader’s Email:</label>
+      <input type="email" id="leaderEmail" required>
+
+      <label>Player 1 (Name + UID):</label>
+      <input type="text" id="player1" required>
+
+      <label>Player 2 (Name + UID):</label>
+      <input type="text" id="player2" required>
+
+      <label>Player 3 (Name + UID):</label>
+      <input type="text" id="player3" required>
+
+      <label>Player 4 (Name + UID):</label>
+      <input type="text" id="player4" required>
+
+      <label>Player 5 (Name + UID):</label>
+      <input type="text" id="player5" required>
+
+      <button type="submit">Submit & Send to WhatsApp</button>
+    </form>
+
+    <p class="note">
+      Fill up all required fields carefully.<br>
+      After submitting, your details will be sent to WhatsApp: <b>+8801310383515</b><br><br>
+      ⚠️ সবাই আগে দেখে নেবেন এটা আমাদের Real ID কি না — Scam হলে “TBL” দিয়ে থাকবে না!
+    </p>
+
+    <div class="footer">
+      <p>All rights reserved by <b>TBL Official</b></p>
+      <!-- Future Update: News Partner & Official Page Links Here -->
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("tournamentForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      if(!confirm("আপনি কি নিশ্চিত যে সব তথ্য ঠিক আছে?")) {
+        return; // Cancel করলে ফর্ম সাবমিশন বন্ধ থাকবে
+      }
+
+      const email = document.getElementById("email").value;
+      const teamName = document.getElementById("teamName").value;
+      const leaderName = document.getElementById("leaderName").value;
+      const leaderWhatsApp = document.getElementById("leaderWhatsApp").value;
+      const leaderEmail = document.getElementById("leaderEmail").value;
+      const player1 = document.getElementById("player1").value;
+      const player2 = document.getElementById("player2").value;
+      const player3 = document.getElementById("player3").value;
+      const player4 = document.getElementById("player4").value;
+      const player5 = document.getElementById("player5").value;
+
+      const message = `🧾 *Tournament Registration Form*%0A
+THE BLOODLOVERS PLAYER HUNT CHAMPIONSHIP%0A
+Produced by: BLOODLOVERS Organization%0A%0A
+📧 Email: ${email}%0A
+🏷 Team Name: ${teamName}%0A
+👑 Leader Name: ${leaderName}%0A
+💬 WhatsApp: ${leaderWhatsApp}%0A
+✉️ Leader Email: ${leaderEmail}%0A%0A
+🎮 Player 1: ${player1}%0A
+🎮 Player 2: ${player2}%0A
+🎮 Player 3: ${player3}%0A
+🎮 Player 4: ${player4}%0A
+🎮 Player 5: ${player5}%0A%0A
+⚠️ Checked by: TBL Official`;
+
+      const phoneNumber = "8801310383515";
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(whatsappURL, "_blank");
+    });
+  </script>
+
+</body>
+</html>
