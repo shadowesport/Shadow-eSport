@@ -41,16 +41,23 @@
     overflow:auto;
     z-index:9999;
     padding:50px 20px;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
   #tournamentModal .modal-content {
-    max-width:450px; /* Choto kore dilam */
-    margin:0 auto;
+    width:100%;
+    max-width:450px;
     background:#111;
     padding:20px;
     border-radius:15px;
     position:relative;
     color:#fff;
+    max-height:90vh; /* screen e fit hobe */
+    overflow-y:auto; /* scroll lagbe jodi content beshi hoy */
   }
+
   #tournamentModal input {
     width:100%;
     padding:10px;
@@ -146,7 +153,7 @@
   const closeBtn = document.querySelector("#tournamentModal .close-btn");
 
   openBtn.addEventListener("click", () => {
-    modal.style.display = "block";
+    modal.style.display = "flex";
     window.scrollTo(0,0);
   });
 
