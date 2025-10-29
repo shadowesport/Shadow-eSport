@@ -6,12 +6,82 @@
   <title>Shadow eSports</title>
   <link rel="stylesheet" href="style.css" />
 
-  <!-- ✅ Google AdSense Verification (optional if already verified) -->
-  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" /> -->
-
-  <!-- ✅ Google AdSense Auto Ads Script -->
+  <!-- Google AdSense Script -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7611817739762787"
      crossorigin="anonymous"></script>
+
+  <style>
+    /* Modal Form Custom CSS */
+    #tournamentModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      overflow:auto;
+      z-index: 9999;
+      padding: 50px 20px;
+    }
+    #tournamentModal .modal-content {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #111;
+      padding: 25px;
+      border-radius: 15px;
+      position: relative;
+      color: #fff;
+    }
+    #tournamentModal input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background: #222;
+      color: #fff;
+    }
+    #tournamentModal label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #ddd;
+    }
+    #tournamentModal button {
+      background: #ff3333;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #tournamentModal button:hover {
+      background: #ff0000;
+    }
+    #tournamentModal .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 25px;
+      color: #ff3333;
+      cursor: pointer;
+    }
+    /* Registration Button */
+    #openFormBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background:#ff3333;
+      color:#fff;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      z-index:1000;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -30,6 +100,7 @@
     </nav>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
       <h1>Join. Compete. Win.</h1>
@@ -38,6 +109,7 @@
     </div>
   </section>
 
+  <!-- Featured Tournaments -->
   <section class="tournaments">
     <h2>🔥 Featured Tournaments</h2>
     <div class="cards">
@@ -59,6 +131,55 @@
     </div>
   </section>
 
+  <!-- Registration Button -->
+  <button id="openFormBtn">Registration</button>
+
+  <!-- Modal Form -->
+  <div id="tournamentModal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 style="text-align:center;color:#ff3333;">🧾 Tournament Registration Form</h2>
+      <h3 style="text-align:center;color:#ff3333;">THE BLOODLOVERS<br>PLAYER HUNT CHAMPIONSHIP</h3>
+      <p style="text-align:center;">Produced by: BLOODLOVERS Organization</p>
+      <hr style="border:1px solid #ff3333;">
+
+      <form id="tournamentForm">
+        <label>Email:</label>
+        <input type="email" id="email" placeholder="ইমেইল লিখুন" required>
+
+        <label>Team Name (টিম এর নাম):</label>
+        <input type="text" id="teamName" required>
+
+        <label>Team Leader Name (টিম লিডার এর নাম):</label>
+        <input type="text" id="leaderName" required>
+
+        <label>Team Leader’s WhatsApp (হোয়াটসঅ্যাপ নাম্বার):</label>
+        <input type="text" id="leaderWhatsApp" required>
+
+        <label>Team Leader’s Email:</label>
+        <input type="email" id="leaderEmail" required>
+
+        <label>Player 1 (Name + UID):</label>
+        <input type="text" id="player1" required>
+
+        <label>Player 2 (Name + UID):</label>
+        <input type="text" id="player2" required>
+
+        <label>Player 3 (Name + UID):</label>
+        <input type="text" id="player3" required>
+
+        <label>Player 4 (Name + UID):</label>
+        <input type="text" id="player4" required>
+
+        <label>Player 5 (Name + UID):</label>
+        <input type="text" id="player5" required>
+
+        <button type="submit">Submit & Send to WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer>
     <p>© 2025 Shadow eSports</p>
     <div class="social">
@@ -68,5 +189,57 @@
       <a href="https://www.tiktok.com/@ewr.kabbo317">TikTok</a>
     </div>
   </footer>
+
+  <!-- JS for modal + form -->
+  <script>
+    const openBtn = document.getElementById("openFormBtn");
+    const modal = document.getElementById("tournamentModal");
+    const closeBtn = document.querySelector("#tournamentModal .close-btn");
+
+    openBtn.addEventListener("click", () => {
+      modal.style.display = "block";
+      window.scrollTo(0,0);
+    });
+
+    closeBtn.addEventListener("click", () => modal.style.display = "none");
+    window.addEventListener("click", (e) => { if(e.target == modal) modal.style.display = "none"; });
+
+    document.getElementById("tournamentForm").addEventListener("submit", function(event){
+      event.preventDefault();
+      if(!confirm("আপনি কি নিশ্চিত যে সব তথ্য ঠিক আছে?")) return;
+
+      const email = document.getElementById("email").value;
+      const teamName = document.getElementById("teamName").value;
+      const leaderName = document.getElementById("leaderName").value;
+      const leaderWhatsApp = document.getElementById("leaderWhatsApp").value;
+      const leaderEmail = document.getElementById("leaderEmail").value;
+      const player1 = document.getElementById("player1").value;
+      const player2 = document.getElementById("player2").value;
+      const player3 = document.getElementById("player3").value;
+      const player4 = document.getElementById("player4").value;
+      const player5 = document.getElementById("player5").value;
+
+      const message = `🧾 *Tournament Registration Form*%0A
+THE BLOODLOVERS PLAYER HUNT CHAMPIONSHIP%0A
+Produced by: BLOODLOVERS Organization%0A%0A
+📧 Email: ${email}%0A
+🏷 Team Name: ${teamName}%0A
+👑 Leader Name: ${leaderName}%0A
+💬 WhatsApp: ${leaderWhatsApp}%0A
+✉️ Leader Email: ${leaderEmail}%0A%0A
+🎮 Player 1: ${player1}%0A
+🎮 Player 2: ${player2}%0A
+🎮 Player 3: ${player3}%0A
+🎮 Player 4: ${player4}%0A
+🎮 Player 5: ${player5}%0A%0A
+⚠️ Checked by: TBL Official`;
+
+      const phoneNumber = "8801310383515";
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(whatsappURL, "_blank");
+
+      modal.style.display = "none";
+    });
+  </script>
 </body>
 </html>
