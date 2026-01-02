@@ -1,63 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tournaments - Shadow eSports</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSports Arena - Tournaments</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="logo.png" alt="Shadow eSports" />
-      <span>Shadow <b>eSports</b></span>
-    </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="tournament.html" class="active">Tournaments</a>
-      <a href="buy-diamonds.html">Buy Diamonds</a>
-      <a href="add-money.html">Add Money</a>
-      <a href="login.html" class="login-btn">Login</a>
-    </nav>
-  </header>
-
-  <section class="tournaments">
-    <h2>🎮 All Tournaments</h2>
-    <div class="cards">
-
-      <div class="card">
-        <h3>Battle Royale</h3>
-        <p>Entry Fee: 25৳</p>
-        <p>Per Kill: 10৳</p>
-        <p>Booyah: 70৳</p>
-        <a href="match1.html">Join Match</a>
-      </div>
-
-      <div class="card">
-        <h3>Clash Squad</h3>
-        <p>Entry Fee: 80৳ per squad</p>
-        <p>Prize: 400৳</p>
-        <a href="match2.html">Join Match</a>
-      </div>
-
-      <div class="card">
-        <h3>Lone Wolf</h3>
-        <p>Entry Fee: 60৳</p>
-        <p>Booyah Prize: 75৳</p>
-        <a href="match3.html">Join Match</a>
-      </div>
-
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Shadow eSports</p>
-    <div class="social">
-      <a href="https://youtube.com/@shadowesports108">YouTube</a>
-      <a href="https://t.me/shadowgarden12389">Telegram</a>
-      <a href="https://www.facebook.com/share/1GhmfdDiaB/">Facebook</a>
-      <a href="https://www.tiktok.com/@ewr.kabbo317">TikTok</a>
-    </div>
-  </footer>
+    <header>
+        <nav>
+            <h1>eSports Arena</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tournaments.html">Tournaments</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h2>Upcoming Tournaments</h2>
+        <p>Check out the latest events and brackets.</p>
+    </section>
+    
+    <section id="tournaments">
+        <h3>Tournament Bracket</h3>
+        <div id="bracket">
+            <div class="round">
+                <div class="match">Team A vs Team B</div>
+                <div class="match">Team C vs Team D</div>
+            </div>
+            <div class="round">
+                <div class="match">Winner 1 vs Winner 2</div>
+            </div>
+        </div>
+        <p>More details coming soon!</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2023 eSports Arena. All rights reserved.</p>
+    </footer>
+    
+    <script src="script.js"></script>
 </body>
 </html>
